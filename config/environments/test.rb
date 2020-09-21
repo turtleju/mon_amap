@@ -8,6 +8,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.action_mailer.default_url_options = { host: 'www.monamap-test.com', port: 80 }
+
   config.cache_classes = false
   config.action_view.cache_template_loading = true
 

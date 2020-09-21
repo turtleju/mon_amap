@@ -15,8 +15,13 @@ gem 'webpacker', '~> 4.0'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'factory_bot_rails', '~> 6.1.0'
+  gem 'rspec-rails', '~> 4.0.1'
   gem 'rubocop', '~> 0.91.0', require: false
   gem 'rubocop-performance', '~> 1.5.2', require: false
+  gem 'rspec-rails', '~> 4.0.1'
+  gem 'shoulda-matchers', '~> 4.4.1'
+  gem 'factory_bot_rails', '~> 6.1.0'
 end
 
 group :development do

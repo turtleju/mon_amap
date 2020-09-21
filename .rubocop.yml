@@ -20,6 +20,7 @@ Layout/LineLength:
   Max: 120
   Exclude:
     - 'config/initializers/**/*'
+    - 'spec/factories/**/*'
     - 'db/seeds.rb'
     - 'config/routes.rb'
   IgnoredPatterns: ['\A.{0,120}\s#\s']
