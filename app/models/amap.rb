@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Amap < ApplicationRecord
+  has_many :periods
+  has_one  :current_period, -> { where('CURRENT_DATE BETWEEN start_on AND finish_on') }, class_name: 'Period'
+
   validates :name, presence: true
   validates :subdomain, presence: true
   validates :legal_address, presence: true

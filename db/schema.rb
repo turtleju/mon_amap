@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_21_145505) do
+ActiveRecord::Schema.define(version: 2020_09_21_200336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 2020_09_21_145505) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "periods", force: :cascade do |t|
+    t.date "start_on"
+    t.date "finish_on"
+    t.bigint "amap_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["amap_id"], name: "index_periods_on_amap_id"
   end
 
   create_table "producers", force: :cascade do |t|
@@ -66,4 +75,5 @@ ActiveRecord::Schema.define(version: 2020_09_21_145505) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "periods", "amaps"
 end

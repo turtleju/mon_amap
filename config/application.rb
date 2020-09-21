@@ -38,5 +38,8 @@ module MonAmap
       generator.view_specs false
       generator.system_tests nil
     end
+
+    config.time_zone = 'Europe/Paris'
+    config.active_record.default_timezone = :local
   end
 end
