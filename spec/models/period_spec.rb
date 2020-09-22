@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe Period, type: :model do
   describe 'associations' do
     it { should belong_to(:amap) }
+    it { should have_many(:formulas)  }
   end
 
   describe 'validations' do

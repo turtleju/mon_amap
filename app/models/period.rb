@@ -2,6 +2,7 @@
 
 class Period < ApplicationRecord
   belongs_to :amap
+  has_many   :formulas
 
   validates :start_on, presence: true
   validates :finish_on, presence: true
