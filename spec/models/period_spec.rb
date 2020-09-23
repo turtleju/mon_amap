@@ -7,6 +7,7 @@ RSpec.describe Period, type: :model do
     it { should belong_to(:amap) }
     it { should have_many(:formulas) }
     it { should have_many(:period_days) }
+    it { should have_many(:subscriptions) }
   end
 
   describe 'validations' do

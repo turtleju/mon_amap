@@ -8,6 +8,7 @@ RSpec.describe Formula, type: :model do
     it { should belong_to(:period) }
     it { should have_many(:period_days) }
     it { should have_many(:delivery_days) }
+    it { should have_many(:subscriptions) }
   end
 
   describe 'validations' do

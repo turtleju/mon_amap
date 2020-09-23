@@ -4,6 +4,7 @@ class Period < ApplicationRecord
   belongs_to :amap
   has_many   :formulas
   has_many   :period_days
+  has_many   :subscriptions, as: :subscribable
 
   validates :start_on, presence: true
   validates :finish_on, presence: true

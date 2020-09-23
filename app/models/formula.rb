@@ -5,6 +5,7 @@ class Formula < ApplicationRecord
   belongs_to :period
   has_many   :delivery_days
   has_many   :period_days, through: :delivery_days
+  has_many   :subscriptions, as: :subscribable
 
   monetize :price_cents, numericality: { greater_than_or_equal_to: 0 }
 
