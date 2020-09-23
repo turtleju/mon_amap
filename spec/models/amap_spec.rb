@@ -4,6 +4,8 @@ require 'rails_helper'
 
 RSpec.describe Amap, type: :model do
   it { should have_many(:periods) }
+  it { should have_many(:amap_producers) }
+  it { should have_many(:producers) }
 
   describe 'current_period' do
     let(:amap) { create(:amap) }

@@ -7,4 +7,6 @@ class Producer < ApplicationRecord
          :confirmable, :recoverable, :rememberable, :validatable
 
   has_many :formulas
+  has_many :amap_producers
+  has_many :amaps, through: :amap_producers
 end
