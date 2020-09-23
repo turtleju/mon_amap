@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_23_084940) do
+ActiveRecord::Schema.define(version: 2020_09_23_095430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(version: 2020_09_23_084940) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["period_id"], name: "index_formulas_on_period_id"
     t.index ["producer_id"], name: "index_formulas_on_producer_id"
+  end
+
+  create_table "period_days", force: :cascade do |t|
+    t.bigint "period_id", null: false
+    t.date "day"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["period_id"], name: "index_period_days_on_period_id"
   end
 
   create_table "periods", force: :cascade do |t|
@@ -101,5 +109,6 @@ ActiveRecord::Schema.define(version: 2020_09_23_084940) do
   add_foreign_key "amap_producers", "producers"
   add_foreign_key "formulas", "periods"
   add_foreign_key "formulas", "producers"
+  add_foreign_key "period_days", "periods"
   add_foreign_key "periods", "amaps"
 end

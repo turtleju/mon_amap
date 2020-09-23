@@ -6,3 +6,7 @@ fr:
           attributes:
             finish_on:
               unconsistency_dates: La date de fin doit être antérieur à la date de début
+        period_day:
+          attributes:
+            day:
+              unconsistency_day: Le jour doit être compris dans la période
