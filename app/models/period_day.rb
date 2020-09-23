@@ -2,6 +2,8 @@
 
 class PeriodDay < ApplicationRecord
   belongs_to :period
+  has_many   :delivery_days
+  has_many   :formulas, through: :delivery_days
 
   validates :day, presence: true
   validates :day, uniqueness: { scope: :period_id }

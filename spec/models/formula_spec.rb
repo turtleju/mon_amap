@@ -6,6 +6,8 @@ RSpec.describe Formula, type: :model do
   describe 'associations' do
     it { should belong_to(:producer) }
     it { should belong_to(:period) }
+    it { should have_many(:period_days) }
+    it { should have_many(:delivery_days) }
   end
 
   describe 'validations' do
