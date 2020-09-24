@@ -39,6 +39,8 @@ module MonAmap
       generator.system_tests nil
     end
 
+    config.session_store :cookie_store, key: '_domain_session', domain: :all
+
     config.time_zone = 'Europe/Paris'
     config.active_record.default_timezone = :local
   end
