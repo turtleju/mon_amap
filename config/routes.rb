@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :producers
+  devise_for :producers, controllers: {
+    confirmations: 'producers/confirmations'
+  }
   devise_for :users
 
   authenticate :user, ->(u) { u.admin? } do
@@ -10,6 +12,10 @@ Rails.application.routes.draw do
     end
   end
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :producers, only: [] do
+    get :invitation, on: :collection
+    post :invite, on: :collection
+  end
+
   root 'application#home'
 end

@@ -10,4 +10,8 @@ FactoryBot.define do
     longitude { 4.8209653 }
     description { 'Lorem, ipsum dolor sit, amet consectetur adipisicing elit. Laudantium quaerat sunt, debitis alias veniam facere. Labore, totam sunt numquam accusantium ratione rem excepturi consequatur qui suscipit. Vitae repudiandae, magnam modi.' }
   end
+
+  trait :with_manager do
+    manager { create(:user) }
+  end
 end

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-User.destroy_all
+AmapProducer.destroy_all
+Producer.destroy_all
 Amap.destroy_all
+User.destroy_all
 
 admin = User.new(
   email: 'admin@example.com',
@@ -32,3 +34,25 @@ amap_curis = Amap.create!(
   description: 'Nous nous retrouvons tous les mercredi à partir de 17h, pour une distribution dans la joie et la bonne humeur',
   manager: user1
 )
+
+producer1 = Producer.new(
+  email: 'producer1@example.com',
+  password: 'azerty',
+  first_name: 'producer1',
+  last_name: 'producer1'
+)
+producer1.skip_confirmation!
+producer1.save!
+
+producer1.amaps << amap_curis
+
+producer2 = Producer.new(
+  email: 'producer2@example.com',
+  password: 'azerty',
+  first_name: 'producer2',
+  last_name: 'producer2'
+)
+producer2.skip_confirmation!
+producer2.save!
+
+producer2.amaps << amap_curis
