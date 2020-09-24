@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+Period.destroy_all
 AmapProducer.destroy_all
 Producer.destroy_all
 Amap.destroy_all
@@ -24,7 +25,7 @@ user1 = User.new(
 user1.skip_confirmation!
 user1.save!
 
-amap_curis = Amap.create!(
+amap1 = Amap.create!(
   name: 'Amap de Curis',
   subdomain: 'curis',
   legal_address: "1032 Route des Monts-d'Or, 69250 Curis-au-Mont-d'Or",
@@ -44,7 +45,7 @@ producer1 = Producer.new(
 producer1.skip_confirmation!
 producer1.save!
 
-producer1.amaps << amap_curis
+producer1.amaps << amap1
 
 producer2 = Producer.new(
   email: 'producer2@example.com',
@@ -55,4 +56,16 @@ producer2 = Producer.new(
 producer2.skip_confirmation!
 producer2.save!
 
-producer2.amaps << amap_curis
+producer2.amaps << amap1
+
+period11 = Period.create!(
+  start_on: 10.days.from_now - 1.year + 1.day,
+  finish_on: 10.days.from_now,
+  amap: amap1
+)
+
+period12 = Period.create!(
+  start_on: 11.days.from_now,
+  finish_on: 11.days.from_now + 1.year - 1.day,
+  amap: amap1
+)

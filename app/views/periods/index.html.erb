@@ -1,0 +1,12 @@
+<h1>Periods#index</h1>
+<p>Find me in app/views/periods/index.html.erb</p>
+
+<ul>
+  <% @periods.each do |period| %>
+    <li>
+      <%= period.start_on %> → <%= period.finish_on %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "ajouter une saison", new_period_path %>

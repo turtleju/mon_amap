@@ -17,5 +17,7 @@ Rails.application.routes.draw do
     post :invite, on: :collection
   end
 
+  resources :periods, only: %i[new create index]
+
   root 'application#home'
 end
