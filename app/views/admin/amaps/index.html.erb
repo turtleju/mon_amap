@@ -1,0 +1,12 @@
+<h1>Admin::Amaps#index</h1>
+<p>Find me in app/views/admin/amaps/index.html.erb</p>
+
+
+<ul>
+  <% @amaps.each do |amap| %>
+    <li><%= amap.name %></li>
+  <% end %>
+</ul>
+
+
+<%= link_to "Ajouter", new_admin_amap_path %>

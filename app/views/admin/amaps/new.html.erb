@@ -1,0 +1,14 @@
+<%= simple_form_for([:admin, @amap]) do |f| %>
+
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :subdomain %>
+  <%= f.input :legal_address %>
+  <%= f.input :distribution_address %>
+  <%= f.input :latitude %>
+  <%= f.input :longitude %>
+
+  <%= f.submit %>
+<% end %>
+
+

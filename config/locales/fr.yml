@@ -1,5 +1,14 @@
 fr:
   activerecord:
+    attributes:
+      amap:
+        name: Nom
+        subdomain: Sous domaine
+        legal_address: Adresse administrative
+        distribution_address: Lieu de distribution
+        latitude: latitude
+        longitude: longitude
+
     errors:
       models:
         period:
