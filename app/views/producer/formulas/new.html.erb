@@ -1,0 +1,14 @@
+<p>Création d'une nouvelle formule pour:</p>
+<p>Amap: <%= @amap.name %> </p>
+<p>Pour la période de <%= @period.start_on %> → <%= @period.finish_on %></p>
+
+
+<%= simple_form_for([:producer, @period, @formula]) do |f| %>
+  <%= f.input :category, collection: CATEGORIES.map(&:to_sym), include_blank: false %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :price %>
+
+  <%= f.submit %>
+<% end %>
+

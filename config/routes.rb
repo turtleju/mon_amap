@@ -19,5 +19,11 @@ Rails.application.routes.draw do
 
   resources :periods, only: %i[new create index]
 
+  namespace :producer do
+    resources :periods, only: %i[index] do
+      resources :formulas, only: %i[index new create]
+    end
+  end
+
   root 'application#home'
 end

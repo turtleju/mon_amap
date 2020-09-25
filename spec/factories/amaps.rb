@@ -14,4 +14,8 @@ FactoryBot.define do
   trait :with_manager do
     manager { create(:user) }
   end
+
+  trait :with_producer do
+    after(:create) { |amap| create(:amap_producer, amap: amap) }
+  end
 end

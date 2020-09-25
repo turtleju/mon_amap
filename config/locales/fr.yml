@@ -1,4 +1,12 @@
 fr:
+
+  formula_categories: &formula_categories
+    bread: 'Pain'
+    vegetables: 'Légumes'
+    cheese: 'Fromage'
+
+  ###################################################################################
+
   activerecord:
     attributes:
       amap:
@@ -8,6 +16,12 @@ fr:
         distribution_address: Lieu de distribution
         latitude: latitude
         longitude: longitude
+      formula:
+        category: 'Catégorie'
+        name: 'Nom'
+        description: 'Description'
+        price: 'Prix'
+
 
     errors:
       models:
@@ -19,3 +33,15 @@ fr:
           attributes:
             day:
               unconsistency_day: Le jour doit être compris dans la période
+
+  helpers:
+      submit:
+        formula:
+          create: "Créer votre formule"
+          update: "Mettre à jour la formule"
+
+
+  simple_form:
+    options:
+      formula:
+        category: *formula_categories

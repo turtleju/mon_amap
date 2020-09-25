@@ -1,0 +1,13 @@
+<p>Gérer vos formules pour la saison:</p>
+
+
+<ul>
+  <% @periods.each do |period| %>
+    <li>
+      <%= link_to producer_period_formulas_path(period) do %>
+        <%= period.start_on %> → <%= period.finish_on %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
