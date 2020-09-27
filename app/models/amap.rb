@@ -14,4 +14,5 @@ class Amap < ApplicationRecord
   validates :latitude, presence: true
   validates :longitude, presence: true
   validates :description, presence: true
+  validates :distribution_day, presence: true, inclusion: { in: WEEK_DAYS }
 end

@@ -17,7 +17,9 @@ Rails.application.routes.draw do
     post :invite, on: :collection
   end
 
-  resources :periods, only: %i[new create index]
+  resources :periods, only: %i[new create index] do
+    resources :period_days, only: %i[index]
+  end
 
   namespace :producer do
     resources :periods, only: %i[index] do

@@ -22,6 +22,13 @@ class Admin::AmapsController < ApplicationController
   private
 
   def amap_params
-    params.require(:amap).permit(%I[name description subdomain legal_address distribution_address latitude longitude])
+    params.require(:amap).permit(%I[name
+                                    description
+                                    subdomain
+                                    legal_address
+                                    distribution_address
+                                    latitude
+                                    longitude
+                                    distribution_day])
   end
 end

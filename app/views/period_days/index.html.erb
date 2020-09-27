@@ -1,0 +1,8 @@
+<h1>PeriodDays#index</h1>
+<p>Find me in app/views/period_days/index.html.erb</p>
+
+<ul>
+  <% @period_days.each do |period_day| %>
+    <li><%= l period_day.day, format: :long %> </li>
+  <% end %>
+</ul>

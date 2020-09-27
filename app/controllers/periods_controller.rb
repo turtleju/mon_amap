@@ -7,11 +7,11 @@ class PeriodsController < ApplicationController
   end
 
   def create
-    @period = Period.new(period_params)
-    @period.amap = @amap
-    authorize @period
+    @period = CreatePeriod.call(period_params, @amap) do |period|
+      authorize period
+    end
     if @period.save
-      redirect_to periods_path
+      redirect_to period_period_days_path(@period)
     else
       render :new
     end

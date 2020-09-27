@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+Formula.destroy_all
+PeriodDay.destroy_all
 Period.destroy_all
 AmapProducer.destroy_all
 Producer.destroy_all
@@ -33,7 +35,8 @@ amap1 = Amap.create!(
   latitude: 45.870564,
   longitude: 4.820168,
   description: 'Nous nous retrouvons tous les mercredi à partir de 17h, pour une distribution dans la joie et la bonne humeur',
-  manager: user1
+  manager: user1,
+  distribution_day: 'tuesday'
 )
 
 producer1 = Producer.new(
@@ -58,14 +61,15 @@ producer2.save!
 
 producer2.amaps << amap1
 
-period11 = Period.create!(
+period11_attributes = {
   start_on: 10.days.from_now - 1.year + 1.day,
-  finish_on: 10.days.from_now,
-  amap: amap1
-)
+  finish_on: 10.days.from_now
+}
 
-period12 = Period.create!(
+period12_attributes = {
   start_on: 11.days.from_now,
-  finish_on: 11.days.from_now + 1.year - 1.day,
-  amap: amap1
-)
+  finish_on: 11.days.from_now + 1.year - 1.day
+}
+
+period11 = CreatePeriod.call(period11_attributes, amap1)
+period12 = CreatePeriod.call(period12_attributes, amap1)

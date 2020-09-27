@@ -5,6 +5,15 @@ fr:
     vegetables: 'Légumes'
     cheese: 'Fromage'
 
+  day_names: &day_names
+    monday: 'lundi'
+    tuesday: 'mardi'
+    wednesday: 'mercredi'
+    thursday: 'jeudi'
+    friday: 'vendredi'
+    saturday: 'samedi'
+    sunday: 'dimanche'
+
   ###################################################################################
 
   activerecord:
@@ -45,3 +54,5 @@ fr:
     options:
       formula:
         category: *formula_categories
+      amap:
+        distribution_day: *day_names
