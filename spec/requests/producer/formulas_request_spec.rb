@@ -51,4 +51,8 @@ RSpec.describe 'Producer::Formulas', type: :request do
       end
     end
   end
+
+  describe '#show' do
+    it 'TODO'
+  end
 end

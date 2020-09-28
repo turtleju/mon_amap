@@ -1,0 +1,19 @@
+<h1><%= @formula.name %></h1>
+
+<%#= debug @formula %>
+
+<hr>
+
+
+<p>Gérer les jours de distribution de <strong>cette</strong> formule:</p>
+
+<% delivery_days = @formula.delivery_days %>
+
+<ul>
+  <% @formula.period.period_days.sort_by_day.each do |period_day| %>
+    <% present = delivery_days.any? {|dd| dd.period_day == period_day } %>
+    <li data-period-day="<%= period_day.id %>">
+      <%= render 'shared/period_day_presence', presence: present, formula: @formula, period_day: period_day %>
+    </li>
+  <% end %>
+</ul>

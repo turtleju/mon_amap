@@ -5,12 +5,14 @@
 
   <% @formulas.each do |formula| %>
     <li>
-      <ul>
-        <li><%= t "formula_categories.#{formula.category}" %></li>
-        <li><%= formula.name %></li>
-        <li><%= formula.description %></li>
-        <li><%= humanized_money_with_symbol formula.price %></li>
-      </ul>
+      <%= link_to producer_formula_path(formula) do %>
+        <ul>
+          <li><%= t "formula_categories.#{formula.category}" %></li>
+          <li><%= formula.name %></li>
+          <li><%= formula.description %></li>
+          <li><%= humanized_money_with_symbol formula.price %></li>
+        </ul>
+      <% end %>
     </li>
   <% end %>
 

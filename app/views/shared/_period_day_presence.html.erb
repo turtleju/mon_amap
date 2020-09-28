@@ -1,0 +1,23 @@
+<% texts = ['OUI', 'NON'] %>
+<% texts.reverse! unless presence %>
+<% text_actual, text_alternate = texts %>
+
+<% colors = ['green', 'red'] %>
+<% colors.reverse! unless presence %>
+<% color_actual, color_alternate = colors %>
+
+<% link_prefix = presence ? 'absent' : 'present' %>
+<% link = "#{link_prefix}_producer_formula_delivery_days_path" %>
+
+<% actual = render 'shared/badge_actual', color: color_actual, text: text_actual %>
+<% alternate = render 'shared/badge_alternate', color: color_alternate, text: text_alternate, link: link, formula: formula, period_day: period_day %>
+
+<% partials = [actual, alternate] %>
+<% partials.reverse! unless presence %>
+
+<!-- HTML BEGIN -->
+
+<%= l period_day.day, format: :long %>
+<% partials.each do |partial| %>
+  <%= partial %>
+<% end %>

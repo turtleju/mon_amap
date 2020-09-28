@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+DeliveryDay.destroy_all
 Formula.destroy_all
 PeriodDay.destroy_all
 Period.destroy_all
@@ -73,3 +74,32 @@ period12_attributes = {
 
 period11 = CreatePeriod.call(period11_attributes, amap1)
 period12 = CreatePeriod.call(period12_attributes, amap1)
+
+formule111_attributes = {
+  category: 'bread',
+  name: 'Les baguettes familiales',
+  description: '5 baguettes mais qui durent toute la semaine',
+  price: '10.00',
+  period: period11,
+  producer: producer1
+
+}
+
+formule112_attributes = {
+  category: 'bread',
+  name: '3 pains complets',
+  description: '3 gros pains pour gros mangeur',
+  price: '20.00',
+  period: period11,
+  producer: producer1
+
+}
+
+formule111 = Formula.create!(formule111_attributes)
+formule112 = Formula.create!(formule112_attributes)
+
+[formule111, formule112].each do |formula|
+  formula.period.period_days.first(20).each do |period_day|
+    DeliveryDay.create!(period_day: period_day, formula: formula)
+  end
+end

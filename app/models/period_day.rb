@@ -10,6 +10,8 @@ class PeriodDay < ApplicationRecord
 
   validate :check_day_in_period
 
+  scope :sort_by_day, -> { order(:day) }
+
   private
 
   def check_day_in_period

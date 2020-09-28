@@ -26,4 +26,12 @@ RSpec.describe FormulaPolicy, type: :policy do
       it { is_expected.to forbid_action(:create) }
     end
   end
+
+  describe '#show?' do
+    it 'TODO'
+  end
+
+  describe '#manage_delivery_days?' do
+    it 'TODO'
+  end
 end

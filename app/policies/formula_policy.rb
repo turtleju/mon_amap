@@ -5,6 +5,14 @@ class FormulaPolicy < ApplicationPolicy
     user.is_a?(Producer) && amap && user.amaps.where(id: amap.id).exists?
   end
 
+  def show?
+    user.is_a?(Producer) && record.producer == user
+  end
+
+  def manage_delivery_days?
+    user.is_a?(Producer) && record.producer == user
+  end
+
   class Scope < Scope
     def resolve
       if user.is_a? Producer

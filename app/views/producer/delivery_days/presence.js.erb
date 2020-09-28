@@ -1,0 +1,2 @@
+html = '<%= j render 'shared/period_day_presence', presence: @delivery_day.persisted?, formula: @formula, period_day: @period_day %>'
+document.querySelector('li[data-period-day="<%= @period_day.id %>"]').innerHTML = html

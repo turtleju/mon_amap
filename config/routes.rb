@@ -27,6 +27,13 @@ Rails.application.routes.draw do
     resources :periods, only: %i[index] do
       resources :formulas, only: %i[index new create]
     end
+
+    resources :formulas, only: [:show] do
+      resources :delivery_days, only: [] do
+        post :present, on: :collection
+        post :absent, on: :collection
+      end
+    end
   end
 
   root 'application#home'

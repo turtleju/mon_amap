@@ -6,7 +6,7 @@ class PeriodDaysController < ApplicationController
 
   def index
     @period_day = PeriodDay.new(period: @period)
-    @period_days = policy_scope(PeriodDay).where(period: @period).order(:day)
+    @period_days = policy_scope(PeriodDay).where(period: @period).sort_by_day
   end
 
   def destroy
@@ -23,7 +23,7 @@ class PeriodDaysController < ApplicationController
       redirect_to period_period_days_path(@period_day.period),
                   notice: "La date du #{l @period_day.day, format: :long} a bien été ajoutée."
     else
-      @period_days = policy_scope(PeriodDay).where(period: @period).order(:day)
+      @period_days = policy_scope(PeriodDay).where(period: @period).sort_by_day
       render :index
     end
   end
