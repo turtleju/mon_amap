@@ -18,8 +18,10 @@ Rails.application.routes.draw do
   end
 
   resources :periods, only: %i[new create index] do
-    resources :period_days, only: %i[index]
+    resources :period_days, only: %i[index create]
   end
+
+  resources :period_days, only: %i[destroy]
 
   namespace :producer do
     resources :periods, only: %i[index] do

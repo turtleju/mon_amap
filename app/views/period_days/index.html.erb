@@ -1,8 +1,27 @@
 <h1>PeriodDays#index</h1>
 <p>Find me in app/views/period_days/index.html.erb</p>
 
+<% if policy(@period_day).create?  %>
+  <hr>
+    <%= simple_form_for([@period, @period_day]) do |f| %>
+      <%= f.input :day %>
+      <%= f.submit %>
+    <% end %>
+  <hr>
+<% end %>
+
+
 <ul>
   <% @period_days.each do |period_day| %>
-    <li><%= l period_day.day, format: :long %> </li>
+    <li>
+      <%= l period_day.day, format: :long %>
+
+      <% if policy(period_day).destroy? %>
+        |
+        <%= link_to 'supprimer', period_day_path(period_day.id), method: :delete %>
+      <% end %>
+    </li>
   <% end %>
 </ul>
+
+

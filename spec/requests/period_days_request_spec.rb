@@ -20,4 +20,12 @@ RSpec.describe 'PeriodDays', type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe 'POST /periods/:period_id/period_days' do
+    it 'create a period_day'
+  end
+
+  describe 'DELETE /period_days/:id' do
+    it 'destroy a period_day'
+  end
 end
