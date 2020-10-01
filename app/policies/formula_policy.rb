@@ -6,11 +6,24 @@ class FormulaPolicy < ApplicationPolicy
   end
 
   def show?
-    user.is_a?(Producer) && record.producer == user
+    owner_of_formula?
+  end
+
+  def copy_formulas_delivery_days?
+    return false unless manage_delivery_days?
+
+    Formula.joins(:delivery_days)
+           .where(producer_id: record.producer_id, period_id: record.period_id)
+           .where.not(id: record.id)
+           .exists?
+  end
+
+  def copy_formula_delivery_days?
+    copy_formulas_delivery_days?
   end
 
   def manage_delivery_days?
-    user.is_a?(Producer) && record.producer == user
+    owner_of_formula?
   end
 
   class Scope < Scope
@@ -23,5 +36,11 @@ class FormulaPolicy < ApplicationPolicy
         scope.all
       end
     end
+  end
+
+  private
+
+  def owner_of_formula?
+    user.is_a?(Producer) && record.producer == user
   end
 end

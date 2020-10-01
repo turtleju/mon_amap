@@ -40,7 +40,15 @@ RSpec.describe 'Producer::Formulas', type: :request do
 
     it 'redirect to formulas' do
       subject
-      expect(response).to redirect_to(producer_period_formulas_path(period))
+      expect(response).to redirect_to(producer_formula_path(Formula.last))
+    end
+
+    context 'when can copy other formulas delivery days' do
+      it 'redirect to copy_formulas_delivery_days_producer_formula_path' do
+        allow_any_instance_of(FormulaPolicy).to receive(:copy_formulas_delivery_days?).and_return(true)
+        subject
+        expect(response).to redirect_to(copy_formulas_delivery_days_producer_formula_path(Formula.last))
+      end
     end
 
     context 'when formulas is invalid' do

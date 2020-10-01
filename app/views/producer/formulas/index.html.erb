@@ -19,4 +19,6 @@
 </ul>
 
 
-<%= link_to "Ajouter une formule", new_producer_period_formula_path %>
+<% text_link = @formulas.exists? ? 'Ajouter une nouvelle formule' : 'Ajouter votre première formule' %>
+
+<%= link_to text_link, new_producer_period_formula_path(@period) %>

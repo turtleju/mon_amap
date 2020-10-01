@@ -33,6 +33,8 @@ Rails.application.routes.draw do
         post :present, on: :collection
         post :absent, on: :collection
       end
+      get  :copy_formulas_delivery_days, on: :member
+      post :copy_formula_delivery_days, on: :member
     end
   end
 

@@ -1,0 +1,10 @@
+<ul>
+  <% @formulas.each do |formula| %>
+    <li>
+      <%= link_to "copier les dates de livraison de [#{formula.name}]", copy_formula_delivery_days_producer_formula_path(@formula, formula_id_to_copy: formula), method: :post %>
+    </li>
+  <% end %>
+</ul>
+
+
+<%= link_to "je ne veux rien copier et partir sur de nouvelles dates", producer_formula_path(@formula) %>
