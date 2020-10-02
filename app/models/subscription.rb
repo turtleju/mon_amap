@@ -12,4 +12,13 @@ class Subscription < ApplicationRecord
   validates :subscribable_type, inclusion: { in: ALLOWED_TYPES }
 
   validates :price_cents, presence: true
+
+  scope :join_formulas, lambda {
+    joins('INNER JOIN formulas ON formulas.id = subscriptions.subscribable_id')
+      .where(subscribable_type: 'Formula')
+  }
+
+  def total_price
+    price * quantity
+  end
 end

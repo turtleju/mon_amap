@@ -7,4 +7,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :managed_amaps, class_name: 'Amap', foreign_key: :manager_id
+  has_many :subscriptions
 end

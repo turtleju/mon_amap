@@ -5,6 +5,10 @@ class PeriodPolicy < ApplicationPolicy
     amap.manager == user
   end
 
+  def show?
+    record.amap == amap
+  end
+
   class Scope < Scope
     def resolve
       if amap

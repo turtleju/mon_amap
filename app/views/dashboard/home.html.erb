@@ -1,0 +1,31 @@
+
+
+
+<% if @current_period %>
+    <h2>Saison en cours</h2>
+    <p>Du <%= l @current_period.start_on, format: :long %> au <%= l @current_period.finish_on, format: :long %></p>
+  <%= link_to period_path(@current_period) do %>
+    <p>Cliquer ici pour voir les formules de proposées</p>
+  <% end %>
+
+<% else %>
+  Pas de saison en cours
+<% end %>
+
+<% if @next_period %>
+  <h2>Prochaine Saison</h2>
+  <p>Du <%= l @next_period.start_on, format: :long %> au <%= l @next_period.finish_on, format: :long %></p>
+
+  <% if @next_period.formulas.exists? %>
+    <%= link_to period_path(@next_period) do %>
+      <p>Cliquer ici pour voir les formules de proposées</p>
+    <% end %>
+  <% else %>
+    Aucune formule encore proposée par les producteurs
+  <% end %>
+<% else %>
+  La prochaine saison n'est pas encore ouverte
+<% end %>
+
+
+

@@ -17,11 +17,22 @@ Rails.application.routes.draw do
     post :invite, on: :collection
   end
 
-  resources :periods, only: %i[new create index] do
+  resources :periods, only: %i[new create index show] do
     resources :period_days, only: %i[index create]
   end
 
   resources :period_days, only: %i[destroy]
+
+  get 'dashboard', to: 'dashboard#home'
+  get 'cart', to: 'subscriptions#cart'
+
+  resources :formulas, only: [] do
+    resources :subscriptions, only: [] do
+      post :add_cart, on: :collection
+    end
+  end
+
+  resources :subscriptions, only: [:destroy]
 
   namespace :producer do
     resources :periods, only: %i[index] do

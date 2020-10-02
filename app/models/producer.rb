@@ -13,4 +13,8 @@ class Producer < ApplicationRecord
   def password_required?
     confirmed? ? super : false
   end
+
+  def full_name
+    "#{first_name.capitalize} #{last_name.upcase}"
+  end
 end

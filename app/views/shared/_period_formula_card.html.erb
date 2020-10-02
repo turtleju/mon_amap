@@ -1,0 +1,16 @@
+<% delivery_count = formula.delivery_days.in_future.count %>
+<% price = formula.price %>
+<% total_price = formula.total_price %>
+
+<li data-formula-id="<%= formula.id %>">
+
+  <% subscription = formula.subscriptions.find_by(user: current_user) %>
+
+  <h3><%= formula.name %></h3>
+  <p><%= formula.description %></p>
+  <p><%= humanized_money_with_symbol price %> X <%= delivery_count %> = <%= humanized_money_with_symbol total_price %></p>
+  <p><%= link_to "ajouter au panier", add_cart_formula_subscriptions_path(formula), method: :post, remote: true %></p>
+  <% if subscription %>
+    ( <%= subscription.quantity %> dans le panier) <%= link_to "Supprimer", subscription_path(subscription), method: :delete, remote: true %>
+  <% end %>
+</li>

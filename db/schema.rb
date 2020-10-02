@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_25_210417) do
+ActiveRecord::Schema.define(version: 2020_10_02_105722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2020_09_25_210417) do
     t.bigint "amap_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "price_cents", default: 0, null: false
     t.index ["amap_id"], name: "index_periods_on_amap_id"
   end
 
@@ -106,6 +107,7 @@ ActiveRecord::Schema.define(version: 2020_09_25_210417) do
     t.integer "price_cents", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "quantity", default: 1
     t.index ["subscribable_type", "subscribable_id"], name: "index_subscriptions_on_subscribable_type_and_subscribable_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end

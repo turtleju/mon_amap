@@ -1,0 +1,12 @@
+<h1>
+  Saison du <%= l @period.start_on, format: :long %> au <%= l @period.finish_on, format: :long %>
+</h1>
+
+
+Les formules:
+
+<ul>
+  <% @period.formulas.each do |formula| %>
+    <%= render 'shared/period_formula_card', formula: formula %>
+  <% end %>
+</ul>

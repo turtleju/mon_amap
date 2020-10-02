@@ -26,6 +26,10 @@ class FormulaPolicy < ApplicationPolicy
     owner_of_formula?
   end
 
+  def add_cart?
+    record.period.amap == amap
+  end
+
   class Scope < Scope
     def resolve
       if user.is_a? Producer

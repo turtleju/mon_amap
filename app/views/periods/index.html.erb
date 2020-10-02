@@ -4,7 +4,7 @@
 <ul>
   <% @periods.each do |period| %>
     <li>
-      <%= period.start_on %> → <%= period.finish_on %>
+      <%= period.start_on %> → <%= period.finish_on %> (<%= humanized_money_with_symbol period.price %>)
     </li>
   <% end %>
 </ul>

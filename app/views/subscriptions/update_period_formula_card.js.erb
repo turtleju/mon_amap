@@ -1,0 +1,4 @@
+html = '<%= j render 'shared/period_formula_card', formula: @formula %>'
+liElement = document.querySelector('li[data-formula-id="<%= @formula.id %>"]')
+newLiElement = new DOMParser().parseFromString(html, "text/html").querySelector('li')
+liElement.parentNode.replaceChild(newLiElement, liElement)

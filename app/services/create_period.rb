@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CreatePeriod < ApplicationService
-  def initialize(params_period, amap) # rubocop:disable Lint/MissingSuper
+  def initialize(params_period, amap)
     @params_period = params_period
     @amap = amap
   end

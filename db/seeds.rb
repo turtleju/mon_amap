@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+Subscription.destroy_all
 DeliveryDay.destroy_all
 Formula.destroy_all
 PeriodDay.destroy_all
@@ -28,6 +29,15 @@ user1 = User.new(
 user1.skip_confirmation!
 user1.save!
 
+user2 = User.new(
+  email: 'visitor1@example.com',
+  password: 'azerty',
+  first_name: 'visitor1',
+  last_name: 'VISITOR1'
+)
+user2.skip_confirmation!
+user2.save!
+
 amap1 = Amap.create!(
   name: 'Amap de Curis',
   subdomain: 'curis',
@@ -38,6 +48,18 @@ amap1 = Amap.create!(
   description: 'Nous nous retrouvons tous les mercredi à partir de 17h, pour une distribution dans la joie et la bonne humeur',
   manager: user1,
   distribution_day: 'tuesday'
+)
+
+amap2 = Amap.create!(
+  name: 'Amap de Neuville',
+  subdomain: 'neuville',
+  legal_address: 'place principale',
+  distribution_address: 'place principale',
+  latitude: 45.890564,
+  longitude: 4.820168,
+  description: 'Nous nous retrouvons tous les mercredi à partir de 17h, pour une distribution dans la joie et la bonne humeur',
+  manager: user1,
+  distribution_day: 'wednesday'
 )
 
 producer1 = Producer.new(
@@ -63,13 +85,15 @@ producer2.save!
 producer2.amaps << amap1
 
 period11_attributes = {
-  start_on: 10.days.from_now - 1.year + 1.day,
-  finish_on: 10.days.from_now
+  start_on: 20.days.from_now - 1.year + 1.day,
+  finish_on: 20.days.from_now,
+  price: 15
 }
 
 period12_attributes = {
-  start_on: 11.days.from_now,
-  finish_on: 11.days.from_now + 1.year - 1.day
+  start_on: 21.days.from_now,
+  finish_on: 21.days.from_now + 1.year - 1.day,
+  price: 18
 }
 
 period11 = CreatePeriod.call(period11_attributes, amap1)

@@ -15,4 +15,8 @@ class Formula < ApplicationRecord
   validates :category, inclusion: { in: CATEGORIES }
   validates :description, presence: true
   validates :price_cents, presence: true
+
+  def total_price
+    price * delivery_days.in_future.count
+  end
 end

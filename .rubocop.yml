@@ -24,7 +24,9 @@ Layout/LineLength:
     - 'db/seeds.rb'
     - 'config/routes.rb'
   IgnoredPatterns: ['\A.{0,120}\s#\s']
-
+Lint/MissingSuper:
+  Exclude:
+    - 'app/services/**/*'
 Lint/RaiseException:
   Enabled: true
 Lint/StructNewOverride:

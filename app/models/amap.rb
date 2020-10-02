@@ -4,6 +4,7 @@ class Amap < ApplicationRecord
   belongs_to  :manager, class_name: 'User', optional: true
   has_many    :periods
   has_one     :current_period, -> { where('CURRENT_DATE BETWEEN start_on AND finish_on') }, class_name: 'Period'
+  has_one     :next_period, -> { where('start_on >= CURRENT_DATE') }, class_name: 'Period'
   has_many    :amap_producers
   has_many    :producers, through: :amap_producers
 

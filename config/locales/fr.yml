@@ -37,7 +37,7 @@ fr:
         period:
           attributes:
             finish_on:
-              unconsistency_dates: La date de fin doit être antérieur à la date de début
+              unconsistency_dates: La date de fin doit être postérieure à la date de début
         period_day:
           attributes:
             day:

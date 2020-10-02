@@ -1,0 +1,46 @@
+<h1>Mon panier</h1>
+
+
+<% multiple_subscription = @subscriptions.where('quantity > 1').exists? %>
+
+
+<table style="width:100%" border="1">
+  <tr>
+    <th>Item</th>
+    <th>Prix du panier</th>
+    <th>Nombre de paniers</th>
+    <th>Total</th>
+    <% if multiple_subscription %>
+      <th>Nombre de panier par jour de livraison</th>
+      <th>Total globale</th>
+    <% end %>
+  </tr>
+
+  <% @subscriptions.where(subscribable_type: 'Formula').each do |subscription| %>
+    <% subscribable = subscription.subscribable %>
+    <tr>
+      <td>
+        <% if subscribable.is_a? Formula %>
+          <%= subscribable.name %> (<%= subscribable.producer.full_name %>)
+        <% else %>
+          Adhésion de la période du <%= l subscribable.start_on %> au <%= l subscribable.finish_on %>
+        <% end %>
+      </td>
+      <td><%= subscribable.price %></td>
+      <td><%= subscribable.delivery_days.in_future.count %></td>
+      <td><%= subscription.price %></td>
+      <% if multiple_subscription %>
+        <td><%= subscription.quantity %></td>
+        <td><%= subscription.total_price %></td>
+      <% end %>
+    </tr>
+  <% end %>
+
+
+
+</table>
+
+  <% membership = @subscriptions.where(subscribable_type: 'Period') %>
+
+  <%= raw(ap(membership)) %>
+
