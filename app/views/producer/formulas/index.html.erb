@@ -11,6 +11,9 @@
           <li><%= formula.name %></li>
           <li><%= formula.description %></li>
           <li><%= humanized_money_with_symbol formula.price %></li>
+          <li> Nombre d'abonnements: <%= formula.subscriptions.count %></li>
+          <li> Nombre de paniers par semaine: <%= formula.subscriptions.sum(:quantity) %></li>
+          <li> CA: <%= humanized_money_with_symbol formula.subscriptions.all.map(&:total_price).reduce(:+) %></li>
         </ul>
       <% end %>
     </li>
