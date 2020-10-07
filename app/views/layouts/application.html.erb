@@ -10,6 +10,25 @@
   </head>
 
   <body>
+    <fieldset>
+      <legend>Navbar</legend>
+      <% if user_signed_in? %>
+        <p>Connecté en tant que : <%= current_user.email %></p>
+        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete %>
+        <hr>
+        <ul>
+          <li><%= link_to "dashboard",  user_root_path %></li>
+          <li><%= link_to "les saisons",  periods_path %></li>
+        </ul>
+      <% end %>
+      <% if producer_signed_in? %>
+        <p>Connecté en tant que : <%= current_producer.email %></p>
+        <%= link_to "Déconnexion", destroy_producer_session_path, method: :delete %>
+        <hr>
+        <%= link_to "dashboard", producer_root_path %>
+      <% end %>
+    </fieldset>
+
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>

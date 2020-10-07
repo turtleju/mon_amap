@@ -9,4 +9,7 @@
   <% end %>
 </ul>
 
-<%= link_to "ajouter une saison", new_period_path %>
+
+<% if policy(Period).create? %>
+  <%= link_to "ajouter une saison", new_period_path %>
+<% end %>

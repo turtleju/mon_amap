@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :period_days, only: %i[destroy]
 
-  get 'dashboard', to: 'dashboard#home'
+  get 'dashboard', to: 'dashboard#home', as: :user_root
   get 'cart', to: 'subscriptions#cart'
 
   resources :formulas, only: [] do
@@ -47,7 +47,11 @@ Rails.application.routes.draw do
       get  :copy_formulas_delivery_days, on: :member
       post :copy_formula_delivery_days, on: :member
     end
+
+    root 'dashboard#home'
   end
 
-  root 'application#home'
+  get '/', to: 'amaps#index', constraints: { subdomain: 'www' }
+
+  root 'amaps#show'
 end

@@ -1,0 +1,17 @@
+<h1>Amaps#index</h1>
+<p>Find me in app/views/amaps/index.html.erb</p>
+
+<h3>Liste des amaps</h3>
+
+<ul>
+  <% @amaps.each do |amap| %>
+    <li>
+      <% if user_signed_in? %>
+        <%= dashboard_url(subdomain: amap.subdomain) %>
+      <% else %>
+        <%= link_to amap.name, root_url(subdomain: amap.subdomain) %>
+      <% end %>
+
+    </li>
+  <% end %>
+</ul>

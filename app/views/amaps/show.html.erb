@@ -1,0 +1,22 @@
+<%= __FILE__ %>
+
+<h1><%= @amap.name %></h1>
+
+
+<% if user_signed_in? %>
+  <%= link_to "voir mon dashboard", user_root_path %>
+<% elsif producer_signed_in? %>
+  <% if policy(@amap).producer_management? %>
+    <%= link_to "voir mon dashboard", producer_root_path %>
+  <% else %>
+    Pour intégrer cette Amap en tant que producteur, merci de contacter
+    <strong><%= @amap.manager&.email || 'turtleju@gmail.com' %></strong>
+  <% end %>
+<% else %>
+  <%= link_to "se connecter en tant que consommateur", new_user_session_path  %>
+  <br>
+  <%= link_to "se connecter en tant que producteur", new_producer_session_path  %>
+<% end %>
+
+
+

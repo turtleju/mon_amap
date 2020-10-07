@@ -3,19 +3,15 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
-  before_action :need_amap!, unless: :devise_controller?, except: :home
+  before_action :need_amap!, unless: :devise_controller?
   before_action :set_amap
-  before_action :authenticate_user!, except: :home
+  before_action :authenticate_user!
 
-  after_action :verify_authorized, except: %i[index home], unless: :devise_controller?
+  after_action :verify_authorized, except: %i[index], unless: :devise_controller?
   after_action :verify_policy_scoped, only: :index, unless: :devise_controller?
 
   def pundit_user
-    { user: current_user, amap: @amap }
-  end
-
-  def home
-    render plain: "🙂 [#{current_user&.email}][#{current_producer&.email}]"
+    { user: (current_user || current_producer), amap: @amap }
   end
 
   private
