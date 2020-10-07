@@ -2,7 +2,7 @@
 
 class FormulaPolicy < ApplicationPolicy
   def create?
-    user.is_a?(Producer) && amap && user.amaps.where(id: amap.id).exists?
+    producer && amap && producer.amaps.where(id: amap.id).exists?
   end
 
   def show?
@@ -32,8 +32,8 @@ class FormulaPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user.is_a? Producer
-        relation = scope.where({ producer_id: user.id })
+      if producer
+        relation = scope.where({ producer_id: producer.id })
         relation = relation.joins(:period).where(periods: { amap_id: amap.id }) if amap
         relation
       else
@@ -45,6 +45,6 @@ class FormulaPolicy < ApplicationPolicy
   private
 
   def owner_of_formula?
-    user.is_a?(Producer) && record.producer == user
+    record.producer == producer
   end
 end

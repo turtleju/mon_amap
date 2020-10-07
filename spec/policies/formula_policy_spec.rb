@@ -6,18 +6,19 @@ RSpec.describe FormulaPolicy, type: :policy do
   let(:amap) { create(:amap, :with_manager, :with_producer) }
   let(:period) { create(:period, amap: amap) }
   let(:formula) { build(:formula, period: period) }
-  let(:user) { create(:user) }
+  let(:user) { nil }
+  let(:producer) { nil }
 
-  subject { described_class.new({ user: user, amap: amap }, formula) }
+  subject { described_class.new({ user: user, producer: producer, amap: amap }, formula) }
 
   describe '#create?' do
     context 'when producer' do
       context 'belongs to the amap' do
-        let(:user) { amap.producers.first }
+        let(:producer) { amap.producers.first }
         it { is_expected.to permit_action(:create) }
       end
       context 'not belongs to the amap' do
-        let(:user) { create(:producer) }
+        let(:producer) { create(:producer) }
         it { is_expected.to forbid_action(:create) }
       end
     end
@@ -40,9 +41,10 @@ RSpec.describe FormulaPolicy, type: :policy do
   end
 
   describe '#owner_of_formula?' do
-    let(:user) { formula.producer }
-
-    it { is_expected.to permit_action(:show) }
+    context 'when producer is owner of formula' do
+      let(:producer) { formula.producer }
+      it { is_expected.to permit_action(:show) }
+    end
 
     context 'when user is not a Producteur' do
       let(:user) { create(:user) }
@@ -50,7 +52,7 @@ RSpec.describe FormulaPolicy, type: :policy do
     end
 
     context 'when producer is not ower of formula' do
-      let(:user) { create(:producer) }
+      let(:producer) { create(:producer) }
       it { is_expected.to forbid_action(:show) }
     end
   end
@@ -67,7 +69,7 @@ RSpec.describe FormulaPolicy, type: :policy do
   end
 
   describe '#copy_formulas_delivery_days?' do
-    let(:user) { formula.producer }
+    let(:producer) { formula.producer }
     let(:previous_formula) { create(:formula, producer: formula.producer, period: formula.period) }
 
     it 'permit copy_formulas_delivery_days when previous formula with delivery_day on same period' do

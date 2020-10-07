@@ -2,7 +2,7 @@
 
 class SubscriptionPolicy < ApplicationPolicy
   def cart?
-    user.is_a? User
+    user
   end
 
   def destroy?

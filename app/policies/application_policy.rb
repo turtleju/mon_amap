@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class ApplicationPolicy
-  attr_reader :user, :record, :amap
+  attr_reader :user, :producer, :record, :amap
 
   def initialize(context, record)
-    @user = context[:user]
-    @amap = context[:amap]
-    @record = record
+    @user     = context[:user]
+    @producer = context[:producer]
+    @amap     = context[:amap]
+    @record   = record
   end
 
   def index?
@@ -38,11 +39,12 @@ class ApplicationPolicy
   end
 
   class Scope
-    attr_reader :user, :scope, :amap
+    attr_reader :user, :producer, :scope, :amap
 
     def initialize(context, scope)
-      @user = context[:user]
-      @amap = context[:amap]
+      @user     = context[:user]
+      @producer = context[:producer]
+      @amap     = context[:amap]
 
       @scope = scope
     end

@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   after_action :verify_policy_scoped, only: :index, unless: :devise_controller?
 
   def pundit_user
-    { user: (current_user || current_producer), amap: @amap }
+    { user: current_user, producer: current_producer, amap: @amap }
   end
 
   private
