@@ -7,11 +7,10 @@
   <% @amaps.each do |amap| %>
     <li>
       <% if user_signed_in? %>
-        <%= dashboard_url(subdomain: amap.subdomain) %>
+        <%= link_to amap.name, user_root_url(subdomain: amap.subdomain) %>
       <% else %>
         <%= link_to amap.name, root_url(subdomain: amap.subdomain) %>
       <% end %>
-
     </li>
   <% end %>
 </ul>

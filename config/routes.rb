@@ -2,9 +2,12 @@
 
 Rails.application.routes.draw do
   devise_for :producers, controllers: {
-    confirmations: 'producers/confirmations'
+    confirmations: 'producers/confirmations',
+    sessions: 'producers/sessions'
   }
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
 
   authenticate :user, ->(u) { u.admin? } do
     namespace :admin do
