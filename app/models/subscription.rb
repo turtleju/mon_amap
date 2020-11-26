@@ -18,6 +18,24 @@ class Subscription < ApplicationRecord
       .where(subscribable_type: 'Formula')
   }
 
+  scope :on_amap, lambda { |amap_or_id|
+    id = case amap_or_id
+         when ApplicationRecord then amap_or_id.id
+         when Integer then amap_or_id
+         else
+           raise ArgumentError, 'argument must be an Amap or an ID'
+         end
+
+    joins(
+      <<~SQL
+        LEFT JOIN periods ON periods.id = subscribable_id AND subscribable_type = 'Period'
+        LEFT JOIN formulas ON formulas.id = subscribable_id AND subscribable_type = 'Formula'
+        LEFT JOIN periods periods_formulas ON periods_formulas.id = formulas.period_id
+      SQL
+    )
+      .where('periods_formulas.amap_id = :amap_id OR periods.amap_id = :amap_id', amap_id: id)
+  }
+
   def total_price
     price * quantity
   end

@@ -1,0 +1,60 @@
+<% if params[:frequency] == 'monthly' %>
+  <%= link_to "passer en annuel", url_for(frequency: :annually) %>
+<% elsif params[:frequency] == 'annually' %>
+  <%= link_to "passer en mensuel", url_for(frequency: :monthly) %>
+<% end %>
+
+
+<p>
+          Adhésion de la période du <strong><%= l @period.start_on %></strong>  au <strong> <%= l @period.finish_on %></strong>: <%= humanized_money_with_symbol @period.price %>
+
+</p>
+
+
+<% if params[:frequency] == 'monthly' %>
+  <% text = @round ? 'Garder les sommes avec centimes' : 'Simplifier les sommes' %>
+  <%= link_to text, url_for(round: !@round, frequency: :monthly) %>
+
+  <table border="1">
+    <tr>
+      <th>Producteur</th>
+      <th>Mois</th>
+      <th>Prix</th>
+    </tr>
+
+    <% @subscriptions_grouped.each do |producer, payments_by_frequence| %>
+      <% payments = payments_by_frequence[:monthly] %>
+      <% payments.each_with_index do |payment, i| %>
+      <% money = Money.from_amount(payment[:sum].fdiv(100)) %>
+
+      <tr>
+        <% if i.zero?  %>
+          <th rowspan="<%= payments.size %>"><%= producer.full_name %></th>
+        <% end %>
+        <td><%= payment[:date] %></td>
+        <td><%= humanized_money_with_symbol money %></td>
+      </tr>
+     <% end %>
+   <% end %>
+
+   <tr>
+  </table>
+
+<% elsif params[:frequency] == 'annually' %>
+  <table border="1">
+    <tr>
+      <th>Producteur</th>
+      <th>Prix</th>
+    </tr>
+    <% @subscriptions_grouped.each do |producer, payments_by_frequence| %>
+      <% money = Money.from_amount(payments_by_frequence[:annually].fdiv(100)) %>
+      <tr>
+        <td><%= producer.full_name %></td>
+        <td><%= humanized_money_with_symbol money %></td>
+      </tr>
+    <% end %>
+
+  </table>
+<% end %>
+
+

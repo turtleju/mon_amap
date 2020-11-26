@@ -20,18 +20,14 @@
     <% subscribable = subscription.subscribable %>
     <tr>
       <td>
-        <% if subscribable.is_a? Formula %>
-          <%= subscribable.name %> (<%= subscribable.producer.full_name %>)
-        <% else %>
-          Adhésion de la période du <%= l subscribable.start_on %> au <%= l subscribable.finish_on %>
-        <% end %>
+        <%= subscribable.name %> (<%= subscribable.producer.full_name %>)
       </td>
       <td><%= subscribable.price %></td>
       <td><%= subscribable.delivery_days.in_future.count %></td>
-      <td><%= subscription.price %></td>
+      <td><%= humanized_money_with_symbol subscription.price %></td>
       <% if multiple_subscription %>
         <td><%= subscription.quantity %></td>
-        <td><%= subscription.total_price %></td>
+        <td><%= humanized_money_with_symbol subscription.total_price %></td>
       <% end %>
     </tr>
   <% end %>
@@ -40,7 +36,30 @@
 
 </table>
 
-  <% membership = @subscriptions.where(subscribable_type: 'Period') %>
+<br>
 
-  <%= raw(ap(membership)) %>
+<table style="width:100%" border="1">
+
+
+  <% @subscriptions.where(subscribable_type: 'Period').each do |subscription| %>
+
+    <% subscribable = subscription.subscribable %>
+    <tr>
+      <td>
+        Adhésion de la période du <strong><%= l subscribable.start_on %></strong>  au <strong> <%= l subscribable.finish_on %></strong>
+      </td>
+      <td><%= humanized_money_with_symbol subscribable.price %></td>
+    </tr>
+
+  <% end %>
+
+</table>
+
+<h3>Prix total:</h3>
+<%= humanized_money_with_symbol @subscriptions.sum(&:total_price) %>
+
+
+<%= link_to "paiement mensuel",cart_payments_path(frequency: :monthly)  %>
+
+<%= link_to "paiement annuel",cart_payments_path(frequency: :annually)  %>
 

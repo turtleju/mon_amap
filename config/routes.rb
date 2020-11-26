@@ -27,7 +27,8 @@ Rails.application.routes.draw do
   resources :period_days, only: %i[destroy]
 
   get 'dashboard', to: 'dashboard#home', as: :user_root
-  get 'cart', to: 'subscriptions#cart'
+  get 'cart', to: 'subscriptions#cart', as: :cart
+  get 'cart/payments', to: 'subscriptions#cart_payments', as: :cart_payments
 
   resources :formulas, only: [] do
     resources :subscriptions, only: [] do
