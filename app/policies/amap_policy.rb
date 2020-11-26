@@ -6,7 +6,7 @@ class AmapPolicy < ApplicationPolicy
   end
 
   def producer_management?
-    producer&.amaps&.include?(amap)
+    producer&.member?
   end
 
   def show?

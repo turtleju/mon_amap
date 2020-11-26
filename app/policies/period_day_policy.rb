@@ -2,11 +2,11 @@
 
 class PeriodDayPolicy < ApplicationPolicy
   def destroy?
-    record.period.amap.manager == user && record.delivery_days.none?
+    Amap.current&.manager == user && record.delivery_days.none?
   end
 
   def create?
-    record.period.amap.manager == user
+    Amap.current&.manager == user
   end
 
   class Scope < Scope

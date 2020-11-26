@@ -16,11 +16,9 @@ ActiveRecord::Schema.define(version: 2020_10_02_105722) do
   enable_extension "plpgsql"
 
   create_table "amap_producers", force: :cascade do |t|
-    t.bigint "amap_id", null: false
     t.bigint "producer_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["amap_id"], name: "index_amap_producers_on_amap_id"
     t.index ["producer_id"], name: "index_amap_producers_on_producer_id"
   end
 
@@ -72,11 +70,9 @@ ActiveRecord::Schema.define(version: 2020_10_02_105722) do
   create_table "periods", force: :cascade do |t|
     t.date "start_on"
     t.date "finish_on"
-    t.bigint "amap_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "price_cents", default: 0, null: false
-    t.index ["amap_id"], name: "index_periods_on_amap_id"
   end
 
   create_table "producers", force: :cascade do |t|
@@ -130,14 +126,5 @@ ActiveRecord::Schema.define(version: 2020_10_02_105722) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "amap_producers", "amaps"
-  add_foreign_key "amap_producers", "producers"
   add_foreign_key "amaps", "users", column: "manager_id"
-  add_foreign_key "delivery_days", "formulas"
-  add_foreign_key "delivery_days", "period_days"
-  add_foreign_key "formulas", "periods"
-  add_foreign_key "formulas", "producers"
-  add_foreign_key "period_days", "periods"
-  add_foreign_key "periods", "amaps"
-  add_foreign_key "subscriptions", "users"
 end

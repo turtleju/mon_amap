@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 gem 'amazing_print'
+gem 'apartment', github: 'influitive/apartment', branch: 'development' # https://github.com/influitive/apartment/issues/617
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise', '~> 4.7'
 gem 'jbuilder', '~> 2.7'

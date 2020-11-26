@@ -6,8 +6,8 @@ class CreateFormulas < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :category
       t.text :description
-      t.references :producer, null: false, foreign_key: true
-      t.references :period, null: false, foreign_key: true
+      t.references :producer, null: false, foreign_key: false
+      t.references :period, null: false, foreign_key: false
       t.monetize :price, currency: { present: false }
 
       t.timestamps

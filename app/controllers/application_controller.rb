@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   after_action :verify_policy_scoped, only: :index, unless: :devise_controller?
 
   def pundit_user
-    { user: current_user, producer: current_producer, amap: @amap }
+    { user: current_user, producer: current_producer }
   end
 
   private
@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_amap
-    @amap = Amap.find_by(subdomain: request.subdomain)
-    redirect_to root_url(subdomain: 'www') if @amap.nil? && @need_amap
+    redirect_to root_url(subdomain: 'www') if Amap.current.nil? && @need_amap
   end
 end

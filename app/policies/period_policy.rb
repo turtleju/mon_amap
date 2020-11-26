@@ -6,16 +6,12 @@ class PeriodPolicy < ApplicationPolicy
   end
 
   def show?
-    record.amap == amap
+    true
   end
 
   class Scope < Scope
     def resolve
-      if amap
-        scope.where(amap: amap)
-      else
-        scope.all
-      end
+      scope.all
     end
   end
 end

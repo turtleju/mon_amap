@@ -6,7 +6,7 @@
 
   <% subscription = formula.subscriptions.find_by(user: current_user) %>
 
-  <h3><%= formula.name %></h3>
+  <h3><%= formula.name %> (<%= formula.producer.full_name %>)</h3>
   <p><%= formula.description %></p>
   <p><%= humanized_money_with_symbol price %> X <%= delivery_count %> = <%= humanized_money_with_symbol total_price %></p>
   <p><%= link_to "ajouter au panier", add_cart_formula_subscriptions_path(formula), method: :post, remote: true %></p>

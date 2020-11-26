@@ -3,13 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Producer::Formulas', type: :request do
-  let(:amap) { create(:amap, :with_producer) }
-  let(:period) { create(:period, amap: amap) }
-  let(:signed_user) { amap.producers.first }
-
-  before(:each) do
-    host! "#{amap.subdomain}.example.com"
-  end
+  let(:period) { create(:period) }
+  let(:signed_user) { create(:producer, :member) }
 
   login
 

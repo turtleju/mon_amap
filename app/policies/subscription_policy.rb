@@ -12,7 +12,7 @@ class SubscriptionPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.on_amap(amap).where(user: user)
+      scope.where(user: user)
     end
   end
 end

@@ -5,12 +5,10 @@ require 'rails_helper'
 RSpec.describe PeriodPolicy, type: :policy do
   let(:period) { Period.new }
 
-  subject { described_class.new({ user: user, amap: amap }, period) }
-
-  let(:amap) { create(:amap, :with_manager) }
+  subject { described_class.new({ user: user }, period) }
 
   context 'when user is manager of amap' do
-    let(:user) { amap.manager }
+    let(:user) { Amap.current.manager }
 
     it { is_expected.to permit_action(:create) }
   end

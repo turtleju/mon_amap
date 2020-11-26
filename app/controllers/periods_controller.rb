@@ -9,7 +9,7 @@ class PeriodsController < ApplicationController
   end
 
   def create
-    @period = CreatePeriod.call(period_params, @amap) do |period|
+    @period = CreatePeriod.call(period_params) do |period|
       authorize period
     end
     if @period.save

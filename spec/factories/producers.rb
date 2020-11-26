@@ -16,5 +16,9 @@ FactoryBot.define do
 
     after(:build, &:skip_confirmation_notification!)
     after(:create) { |u, evaluator| u.confirm if evaluator.confirmed }
+
+    trait :member do
+      after(:create) { |producer| create(:amap_producer, producer: producer) }
+    end
   end
 end

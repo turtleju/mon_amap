@@ -4,12 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Periods', type: :request do
   login
-  let(:amap) { create(:amap, :with_manager) }
-  let(:signed_user) { amap.manager }
-
-  before(:each) do
-    host! "#{amap.subdomain}.example.com"
-  end
+  let(:signed_user) { Amap.current.manager }
 
   describe 'GET /new' do
     it 'returns http success' do

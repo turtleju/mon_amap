@@ -17,7 +17,7 @@ class ProducersController < ApplicationController
       authorize(@producer)
       @producer.save!
     end
-    @producer.amaps << @amap
+    AmapProducer.create!(producer: @producer)
     redirect_to root_path
   end
 end

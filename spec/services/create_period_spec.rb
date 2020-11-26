@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe CreatePeriod do
-  let(:amap) { create(:amap, distribution_day: 'tuesday') }
   let(:start_on) { '2020-09-05' }
   let(:finish_on) { '2020-10-19' }
 
@@ -15,21 +14,20 @@ RSpec.describe CreatePeriod do
   end
 
   describe '#initialize' do
-    subject { described_class.new(params_period, amap) }
+    subject { described_class.new(params_period) }
 
     it 'set @params_period' do
       object = subject
       expect(object.instance_variable_get(:@params_period)).to eq(params_period)
     end
-
-    it 'set @amap' do
-      object = subject
-      expect(object.instance_variable_get(:@amap)).to eq(amap)
-    end
   end
 
   describe '#call' do
-    let!(:period) { described_class.call(params_period, amap) }
+    before do
+      Amap.current.update!(distribution_day: 'tuesday')
+    end
+
+    let!(:period) { described_class.call(params_period) }
 
     context 'when days before' do
       let(:start_on) { '2020-10-05' }

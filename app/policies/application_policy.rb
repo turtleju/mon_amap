@@ -6,8 +6,8 @@ class ApplicationPolicy
   def initialize(context, record)
     @user     = context[:user]
     @producer = context[:producer]
-    @amap     = context[:amap]
     @record   = record
+    @amap     = Amap.current
   end
 
   def index?
@@ -44,7 +44,7 @@ class ApplicationPolicy
     def initialize(context, scope)
       @user     = context[:user]
       @producer = context[:producer]
-      @amap     = context[:amap]
+      @amap     = Amap.current
 
       @scope = scope
     end

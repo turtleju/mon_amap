@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Period < ApplicationRecord
-  belongs_to :amap
   has_many   :formulas
   has_many   :period_days
   has_many   :subscriptions, as: :subscribable
@@ -12,6 +11,14 @@ class Period < ApplicationRecord
   validate :check_consistency_dates
 
   monetize :price_cents, numericality: { greater_than_or_equal_to: 0 }
+
+  def self.current
+    where('CURRENT_DATE BETWEEN start_on AND finish_on').first
+  end
+
+  def self.next
+    where('start_on >= CURRENT_DATE').first
+  end
 
   private
 

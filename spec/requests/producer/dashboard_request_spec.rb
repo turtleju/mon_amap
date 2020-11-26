@@ -3,14 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Producer::Dashboards', type: :request do
-  let(:amap) { create(:amap, :with_producer) }
-  let(:signed_user) { amap.producers.first }
+  let(:signed_user) { create(:producer, :member) }
 
   login
-
-  before(:each) do
-    host! "#{amap.subdomain}.example.com"
-  end
 
   describe 'GET /producer' do
     it 'returns http success' do

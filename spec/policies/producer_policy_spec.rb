@@ -3,20 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe ProducerPolicy, type: :policy do
-  let(:amap) { create(:amap, :with_manager) }
-  let(:amap2) { create(:amap, :with_manager) }
+  let(:producer) { Producer.new }
 
-  subject { described_class.new({ user: user, amap: amap }, amap) }
+  subject { described_class.new({ user: user }, producer) }
 
   describe '#invitation?' do
     context 'when manager of amap' do
-      let(:user) { amap.manager }
+      let(:user) { Amap.current.manager }
 
       it { is_expected.to permit_action(:invitation) }
     end
 
     context 'when not manager amap' do
-      let(:user) { amap2.manager }
+      let(:user) { create(:user) }
 
       it { is_expected.to forbid_action(:invitation) }
     end

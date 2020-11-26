@@ -21,11 +21,44 @@ end
 # the additional setup, and require it from the spec files that actually need
 # it.
 #
+
+def create_minimal_data
+  Apartment::Tenant.switch 'public' do
+    Amap.delete_all
+    User.delete_all
+
+    manager = FactoryBot.create(:user, email: 'manager@example.com')
+
+    Amap.create!(
+      name: 'Amap de Curis',
+      subdomain: 'curis',
+      legal_address: 'curis legal_address',
+      distribution_address: 'curis distribution_address',
+      latitude: 45.8734447,
+      longitude: 4.8209653,
+      description: 'Lorem, ipsum dolor sit, amet co.',
+      distribution_day: WEEK_DAYS.sample,
+      manager: manager
+    )
+  end
+end
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
+
+  config.before(:suite) do
+    create_minimal_data
+    Apartment::Tenant.drop 'curis' rescue nil # rubocop:disable Style/RescueModifier
+    Apartment::Tenant.create 'curis'
+    Apartment::Tenant.switch! 'curis'
+  end
+
+  config.after(:suite) do
+    Apartment::Tenant.drop 'curis'
+  end
 
   # use expect instead of should
   config.expect_with :rspec do |c|

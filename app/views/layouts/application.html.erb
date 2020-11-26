@@ -16,19 +16,22 @@
         <p>Connecté en tant que : <%= current_user.email %> (id: <%= current_user.id %>) </p>
         <%= link_to "Déconnexion", destroy_user_session_path, method: :delete %>
         <hr>
-        <% if @amap %>
+        <% if Amap.current %>
           <ul>
             <li><%= link_to "dashboard",  user_root_path %></li>
-            <li><%= link_to "les saisons",  periods_path %></li>
-            <li><%= link_to "panier (#{current_user.subscriptions.on_amap(@amap).count})", cart_path %></li>
+            <li><%= link_to "Gérer les saisons",  periods_path %></li>
+            <li><%= link_to "panier (#{current_user.subscriptions.count})", cart_path %></li>
           </ul>
         <% end %>
       <% end %>
       <% if producer_signed_in? %>
         <p>Connecté en tant que : <%= current_producer.email %></p>
         <%= link_to "Déconnexion", destroy_producer_session_path, method: :delete %>
-        <hr>
-        <%= link_to "dashboard", producer_root_path %>
+
+        <% if policy(Amap).producer_management? %>
+          <hr>
+          <%= link_to "dashboard", producer_root_path %>
+        <% end %>
       <% end %>
     </fieldset>
 

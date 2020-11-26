@@ -3,14 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Dashboards', type: :request do
-  let(:amap) { create(:amap) }
   let(:signed_user) { create(:user) }
 
   login
-
-  before(:each) do
-    host! "#{amap.subdomain}.example.com"
-  end
 
   describe 'GET /dashboard' do
     it 'returns http success' do

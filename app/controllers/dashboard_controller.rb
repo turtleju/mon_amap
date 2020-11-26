@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
 
   def home
     @formulas = policy_scope(Formula)
-    @current_period = @amap.current_period
-    @next_period = @amap.next_period
+    @current_period = Period.current
+    @next_period = Period.next
   end
 end

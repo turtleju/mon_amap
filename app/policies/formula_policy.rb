@@ -2,7 +2,7 @@
 
 class FormulaPolicy < ApplicationPolicy
   def create?
-    producer && amap && producer.amaps.where(id: amap.id).exists?
+    producer&.member?
   end
 
   def show?
@@ -27,15 +27,13 @@ class FormulaPolicy < ApplicationPolicy
   end
 
   def add_cart?
-    record.period.amap == amap
+    true
   end
 
   class Scope < Scope
     def resolve
       if producer
-        relation = scope.where({ producer_id: producer.id })
-        relation = relation.joins(:period).where(periods: { amap_id: amap.id }) if amap
-        relation
+        scope.where({ producer_id: producer.id })
       else
         scope.all
       end

@@ -3,9 +3,7 @@
 class CreateAmapProducers < ActiveRecord::Migration[6.0]
   def change
     create_table :amap_producers do |t|
-      t.references :amap, null: false, foreign_key: true
-      t.references :producer, null: false, foreign_key: true
-
+      t.references :producer, null: false, foreign_key: false
       t.timestamps
     end
   end

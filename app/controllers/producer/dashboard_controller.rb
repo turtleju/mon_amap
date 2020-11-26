@@ -2,6 +2,6 @@
 
 class Producer::DashboardController < Producer::BaseController
   def home
-    authorize(@amap, :producer_management?)
+    authorize(Amap.current, :producer_management?)
   end
 end

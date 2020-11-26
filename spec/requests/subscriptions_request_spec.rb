@@ -8,10 +8,6 @@ RSpec.describe 'Subscriptions', type: :request do
 
   login
 
-  before(:each) do
-    host! "#{amap.subdomain}.example.com"
-  end
-
   describe 'GET /cart' do
     it 'returns http success' do
       get '/cart'

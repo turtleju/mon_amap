@@ -9,6 +9,6 @@ class AmapsController < ApplicationController
   end
 
   def show
-    authorize @amap
+    authorize Amap.current
   end
 end

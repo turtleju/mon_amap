@@ -3,16 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe 'PeriodDays', type: :request do
-  let(:amap) { create(:amap, :with_manager) }
-  let(:signed_user) { amap.manager }
-  let(:period) { create(:period, amap: amap) }
+  let(:signed_user) { Amap.current.manager }
+  let(:period) { create(:period) }
   let!(:period_day) { create(:period_day, period: period) }
 
   login
-
-  before(:each) do
-    host! "#{amap.subdomain}.example.com"
-  end
 
   describe 'GET /periods/:period_id/period_days' do
     it 'returns http success' do

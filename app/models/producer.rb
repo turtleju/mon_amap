@@ -7,8 +7,7 @@ class Producer < ApplicationRecord
          :confirmable, :recoverable, :rememberable, :validatable
 
   has_many :formulas
-  has_many :amap_producers
-  has_many :amaps, through: :amap_producers
+  has_one :amap_producer
 
   def password_required?
     confirmed? ? super : false
@@ -16,5 +15,9 @@ class Producer < ApplicationRecord
 
   def full_name
     "#{first_name.capitalize} #{last_name.upcase}"
+  end
+
+  def member?
+    amap_producer.present?
   end
 end

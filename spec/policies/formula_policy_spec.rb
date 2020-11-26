@@ -3,18 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe FormulaPolicy, type: :policy do
-  let(:amap) { create(:amap, :with_manager, :with_producer) }
-  let(:period) { create(:period, amap: amap) }
+  let(:period) { create(:period) }
   let(:formula) { build(:formula, period: period) }
   let(:user) { nil }
   let(:producer) { nil }
 
-  subject { described_class.new({ user: user, producer: producer, amap: amap }, formula) }
+  subject { described_class.new({ user: user, producer: producer, amap: Amap.current }, formula) }
 
   describe '#create?' do
     context 'when producer' do
       context 'belongs to the amap' do
-        let(:producer) { amap.producers.first }
+        let(:producer) { create(:producer, :member) }
         it { is_expected.to permit_action(:create) }
       end
       context 'not belongs to the amap' do
@@ -24,7 +23,7 @@ RSpec.describe FormulaPolicy, type: :policy do
     end
 
     context 'when user' do
-      let(:user) { amap.manager }
+      let(:user) { Amap.current.manager }
       it { is_expected.to forbid_action(:create) }
     end
   end
