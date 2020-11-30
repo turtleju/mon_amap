@@ -18,7 +18,7 @@ class AddFormulaToCart < ApplicationService
   private
 
   def find_or_initialize_subscription
-    @subscription = Subscription.find_or_initialize_by(subscribable: @formula, user: @user)
+    @subscription = Subscription.find_or_initialize_by(subscribable: @formula, user: @user, payment: nil)
   end
 
   def calculate_price

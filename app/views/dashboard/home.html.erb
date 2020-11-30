@@ -1,6 +1,17 @@
 
 <h1>Dashboard</h1>
 
+<% if @undeposited_cheques.exists? %>
+  <h2>Y a des chèques à déposer</h2>
+  <p>
+    Vous avez <strong><%= @undeposited_cheques.count %></strong> chèques à déposer.
+    <br>
+    C'est fait? 😁, cliquez ici pour nous l'indiquer:
+    <%= link_to "J'ai déposé mes chèques", deposit_cheques_path, method: :post %>
+  </p>
+
+
+<% end %>
 
 <% if @current_period %>
     <h2>Saison en cours</h2>
@@ -27,6 +38,7 @@
 <% else %>
   La prochaine saison n'est pas encore ouverte
 <% end %>
+
 
 
 

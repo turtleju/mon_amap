@@ -1,0 +1,29 @@
+<h1>Cheques#index</h1>
+<p>Find me in app/views/cheques/index.html.erb</p>
+
+
+<% if policy(Cheque).deposit? %>
+  <%= link_to "Indiquer que vous avez déposer les chèques", deposit_cheques_path, method: :post %>
+<% end %>
+
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Montant</th>
+      <th>Date prévisionnel du dépot par le producteur</th>
+      <th>Libelé du chèque</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cheques.order(:cashing_on).each do |cheque| %>
+      <tr>
+        <td><%= humanized_money_with_symbol cheque.price %></td>
+        <td><%= l cheque.cashing_on, format: :long %> </td>
+        <td><%= cheque.recipient %></td>
+        <td><%= cheque.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -20,18 +20,22 @@ RSpec.describe Formula, type: :model do
     it 'should validate uniqueness name scope by producer' do
       producer1 = create(:producer)
       producer2 = create(:producer)
+      period1   = create(:period)
+      period2   = create(:period)
 
-      create(:formula, name: 'first_name', producer: producer1)
+      create(:formula, name: 'first_name', producer: producer1, period: period1)
 
-      formula1 = build(:formula, name: 'second_name', producer: producer1)
-      formula2 = build(:formula, name: 'first_name', producer: producer2)
-      formula3 = build(:formula, name: 'first_name', producer: producer1)
+      formula1 = build(:formula, name: 'second_name', producer: producer1, period: period1)
+      formula2 = build(:formula, name: 'first_name', producer: producer2, period: period1)
+      formula3 = build(:formula, name: 'first_name', producer: producer1, period: period2)
+      formula4 = build(:formula, name: 'first_name', producer: producer1, period: period1)
 
-      expect(formula1).to be_valid
-      expect(formula2).to be_valid
-      expect(formula3).to_not be_valid
+      expect(formula1).to     be_valid
+      expect(formula2).to     be_valid
+      expect(formula3).to     be_valid
+      expect(formula4).to_not be_valid
 
-      expect(formula3.errors.messages[:name]).to eq [I18n.translate('errors.messages.taken')]
+      expect(formula4.errors.messages[:name]).to eq [I18n.translate('errors.messages.taken')]
     end
   end
 end

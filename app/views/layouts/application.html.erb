@@ -18,9 +18,12 @@
         <hr>
         <% if Amap.current %>
           <ul>
+            <% if policy(Period).manage? %>
+              <li><%= link_to "Gérer les saisons",  periods_path %></li>
+            <% end %>
             <li><%= link_to "dashboard",  user_root_path %></li>
-            <li><%= link_to "Gérer les saisons",  periods_path %></li>
-            <li><%= link_to "panier (#{current_user.subscriptions.count})", cart_path %></li>
+            <li><%= link_to "panier (#{current_user.subscriptions.without_payment.count})", cart_path %></li>
+            <li><%= link_to "Chèques", cheques_path %></li>
           </ul>
         <% end %>
       <% end %>

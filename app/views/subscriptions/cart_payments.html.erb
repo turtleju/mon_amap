@@ -5,10 +5,14 @@
 <% end %>
 
 
-<p>
-          Adhésion de la période du <strong><%= l @period.start_on %></strong>  au <strong> <%= l @period.finish_on %></strong>: <%= humanized_money_with_symbol @period.price %>
 
-</p>
+<% if @period.subscriptions.find_by(user: current_user, payment: nil) %>
+  <p>
+            Adhésion de la période du <strong><%= l @period.start_on %></strong>  au <strong> <%= l @period.finish_on %></strong>: <%= humanized_money_with_symbol @period.price %>
+
+  </p>
+<% end %>
+
 
 
 <% if params[:frequency] == 'monthly' %>
@@ -18,7 +22,7 @@
   <table border="1">
     <tr>
       <th>Producteur</th>
-      <th>Mois</th>
+      <th>Mois (date thérorique d'encaissement)</th>
       <th>Prix</th>
     </tr>
 
@@ -55,6 +59,16 @@
     <% end %>
 
   </table>
+<% end %>
+
+
+<% if policy(Payment).create? %>
+  <p>
+    En cliquant sur le bouton, vous vous engagez à amener les chèques à l'amap:
+    <%= link_to "Confirmer ces échéances", payments_path(round: params[:round], frequency: params[:frequency]), method: :post %>
+    <br>
+    <em>Vous retrouverez sur la page suivante, tous les montants et bénéficiaires pour vous aider à compléter vos chèques</em>
+  </p>
 <% end %>
 
 

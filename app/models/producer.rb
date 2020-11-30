@@ -7,6 +7,7 @@ class Producer < ApplicationRecord
          :confirmable, :recoverable, :rememberable, :validatable
 
   has_many :formulas
+  has_many :cheques
   has_one :amap_producer
 
   def password_required?

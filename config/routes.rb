@@ -30,6 +30,10 @@ Rails.application.routes.draw do
   get 'cart', to: 'subscriptions#cart', as: :cart
   get 'cart/payments', to: 'subscriptions#cart_payments', as: :cart_payments
 
+  resources :payments, only: %i[create show] do
+    get :confirmed, on: :member
+  end
+
   resources :formulas, only: [] do
     resources :subscriptions, only: [] do
       post :add_cart, on: :collection
@@ -37,6 +41,9 @@ Rails.application.routes.draw do
   end
 
   resources :subscriptions, only: [:destroy]
+  resources :cheques, only: [:index] do
+    post :deposit, on: :collection
+  end
 
   namespace :producer do
     resources :periods, only: %i[index] do

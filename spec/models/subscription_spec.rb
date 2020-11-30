@@ -10,7 +10,7 @@ RSpec.describe Subscription, type: :model do
 
   describe 'validations' do
     subject { create(:subscription) }
-    it { should validate_uniqueness_of(:subscribable_id).scoped_to(%i[subscribable_type user_id]) }
+    it { should validate_uniqueness_of(:subscribable_id).scoped_to(%i[subscribable_type user_id payment_id]) }
     it { should validate_presence_of(:price_cents) }
     it { should validate_numericality_of(:price_cents) }
   end

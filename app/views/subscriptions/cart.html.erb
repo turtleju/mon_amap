@@ -55,11 +55,12 @@
 
 </table>
 
-<h3>Prix total:</h3>
-<%= humanized_money_with_symbol @subscriptions.sum(&:total_price) %>
+<h3>Prix total: <%= humanized_money_with_symbol @subscriptions.sum(&:total_price) %></h3>
 
 
-<%= link_to "paiement mensuel",cart_payments_path(frequency: :monthly)  %>
+<p>Vous préférez:</p>
 
-<%= link_to "paiement annuel",cart_payments_path(frequency: :annually)  %>
-
+<ul>
+  <li><%= link_to "Payer mensuellement",cart_payments_path(frequency: :monthly)  %></li>
+  <li><%= link_to "Payer annuellement",cart_payments_path(frequency: :annually)  %></li>
+</ul>

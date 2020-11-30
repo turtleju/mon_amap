@@ -7,5 +7,6 @@ class DashboardController < ApplicationController
     @formulas = policy_scope(Formula)
     @current_period = Period.current
     @next_period = Period.next
+    @undeposited_cheques = current_user.cheques.undeposited
   end
 end

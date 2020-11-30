@@ -2,11 +2,15 @@
 
 class PeriodPolicy < ApplicationPolicy
   def create?
-    amap.manager == user
+    manage?
   end
 
   def show?
     true
+  end
+
+  def manage?
+    amap.manager == user
   end
 
   class Scope < Scope

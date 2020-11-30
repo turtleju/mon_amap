@@ -52,7 +52,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def set_subscriptions
-    @subscriptions = policy_scope(Subscription)
+    @subscriptions = policy_scope(Subscription).without_payment
 
     periods = @subscriptions.all.map do |s|
       case s.subscribable

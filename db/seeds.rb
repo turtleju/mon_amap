@@ -104,7 +104,6 @@ if Apartment::Tenant.current == 'curis'
   }
 
   period11 = CreatePeriod.call(period11_attributes)
-  period12 = CreatePeriod.call(period12_attributes)
 
   formule111_attributes = {
     category: 'bread',
@@ -134,6 +133,59 @@ if Apartment::Tenant.current == 'curis'
       DeliveryDay.create!(period_day: period_day, formula: formula)
     end
   end
+
+  # deuxieme saison
+  period12 = CreatePeriod.call(period12_attributes)
+
+  formule121_attributes = {
+    category: 'bread',
+    name: 'Les baguettes familiales',
+    description: '5 baguettes mais qui durent toute la semaine',
+    price: '10.00',
+    period: period12,
+    producer: producer1
+
+  }
+
+  formule122_attributes = {
+    category: 'bread',
+    name: '3 pains complets',
+    description: '3 gros pains pour gros mangeur',
+    price: '20.00',
+    period: period12,
+    producer: producer1
+  }
+
+  formule123_attributes = {
+    category: 'vegetables',
+    name: 'Panier legume duo',
+    description: 'Chaque semaine, un panier de légume de saison pour deux personnes',
+    price: '7.00',
+    period: period12,
+    producer: producer2
+
+  }
+
+  formule124_attributes = {
+    category: 'vegetables',
+    name: 'Panier legume XXL',
+    description: 'Chaque semaine, un panier de légume de saison pour famille de 5',
+    price: '12.00',
+    period: period12,
+    producer: producer2
+  }
+
+  formule121 = Formula.create!(formule121_attributes)
+  formule122 = Formula.create!(formule122_attributes)
+  formule123 = Formula.create!(formule123_attributes)
+  formule124 = Formula.create!(formule124_attributes)
+
+  [formule121, formule122, formule123, formule124].each do |formula|
+    formula.period.period_days.first(20).each do |period_day|
+      DeliveryDay.create!(period_day: period_day, formula: formula)
+    end
+  end
+
 end
 # End tenant curis
 

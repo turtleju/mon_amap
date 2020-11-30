@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_02_105722) do
+ActiveRecord::Schema.define(version: 2020_12_12_113209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,19 @@ ActiveRecord::Schema.define(version: 2020_10_02_105722) do
     t.index ["manager_id"], name: "index_amaps_on_manager_id"
   end
 
+  create_table "cheques", force: :cascade do |t|
+    t.bigint "payment_id", null: false
+    t.bigint "producer_id"
+    t.integer "price_cents", default: 0, null: false
+    t.string "status"
+    t.string "recipient"
+    t.date "cashing_on"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["payment_id"], name: "index_cheques_on_payment_id"
+    t.index ["producer_id"], name: "index_cheques_on_producer_id"
+  end
+
   create_table "delivery_days", force: :cascade do |t|
     t.bigint "period_day_id", null: false
     t.bigint "formula_id", null: false
@@ -57,6 +70,15 @@ ActiveRecord::Schema.define(version: 2020_10_02_105722) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["period_id"], name: "index_formulas_on_period_id"
     t.index ["producer_id"], name: "index_formulas_on_producer_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer "price_cents", default: 0, null: false
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "period_days", force: :cascade do |t|
@@ -104,6 +126,8 @@ ActiveRecord::Schema.define(version: 2020_10_02_105722) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "quantity", default: 1
+    t.bigint "payment_id"
+    t.index ["payment_id"], name: "index_subscriptions_on_payment_id"
     t.index ["subscribable_type", "subscribable_id"], name: "index_subscriptions_on_subscribable_type_and_subscribable_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
@@ -127,4 +151,5 @@ ActiveRecord::Schema.define(version: 2020_10_02_105722) do
   end
 
   add_foreign_key "amaps", "users", column: "manager_id"
+  add_foreign_key "subscriptions", "payments"
 end
