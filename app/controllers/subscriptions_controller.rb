@@ -10,13 +10,13 @@ class SubscriptionsController < ApplicationController
 
   def add_cart
     @subscription = AddFormulaToCart.call(@formula, current_user)
-    render :update_period_formula_card
+    render_update_cart
   end
 
   def destroy
     RemoveFormulaToCart.call(@subscription)
     @formula = @subscription.subscribable
-    render :update_period_formula_card
+    render_update_cart
   end
 
   def cart; end
@@ -28,6 +28,11 @@ class SubscriptionsController < ApplicationController
   end
 
   private
+
+  def render_update_cart
+    @number_cart_items = current_user.subscriptions.without_payment.sum(:quantity)
+    render :update_period_formula_card
+  end
 
   def add_payments_monthly_and_annually
     @subscriptions_grouped.each do |producer, subscriptions|

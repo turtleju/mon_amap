@@ -10,7 +10,7 @@
   </head>
 
   <body>
-    <fieldset>
+    <fieldset data-controller="navbar">
       <legend>Navbar</legend>
       <% if user_signed_in? %>
         <p>Connecté en tant que : <%= current_user.email %> (id: <%= current_user.id %>) </p>
@@ -22,7 +22,9 @@
               <li><%= link_to "Gérer les saisons",  periods_path %></li>
             <% end %>
             <li><%= link_to "dashboard",  user_root_path %></li>
-            <li><%= link_to "panier (#{current_user.subscriptions.without_payment.count})", cart_path %></li>
+            <li data-navbar-target="cart">
+              <%= render 'shared/navbar_cart', number: current_user.subscriptions.without_payment.sum(:quantity) %>
+            </li>
             <li><%= link_to "Chèques", cheques_path %></li>
           </ul>
         <% end %>

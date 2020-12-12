@@ -1,4 +1,8 @@
-html = '<%= j render 'shared/period_formula_card', formula: @formula %>'
+html = "<%= j render 'shared/period_formula_card', formula: @formula %>"
 liElement = document.querySelector('li[data-formula-id="<%= @formula.id %>"]')
 newLiElement = new DOMParser().parseFromString(html, "text/html").querySelector('li')
 liElement.parentNode.replaceChild(newLiElement, liElement)
+
+
+htmlNavbarCart = '<%= j render 'shared/navbar_cart', number: @number_cart_items %>'
+document.querySelector('[data-controller="navbar"]')['controller'].updateCart(htmlNavbarCart)

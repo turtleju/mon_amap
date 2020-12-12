@@ -21,6 +21,8 @@ class Subscription < ApplicationRecord
 
   scope :without_payment, -> { where(payment_id: nil) }
 
+  # scope :on_period, ->(period) {ap period ; all}
+
   def total_price
     price * quantity
   end
