@@ -1,16 +1,40 @@
 <% delivery_count = formula.delivery_days.in_future.count %>
 <% price = formula.price %>
 <% total_price = formula.total_price %>
+<% subscription = formula.subscriptions.without_payment.find_by(user: current_user) %>
 
-<li data-formula-id="<%= formula.id %>">
+<li data-formula-id="<%= formula.id %>" class="border border-purple-600 my-8 mx-auto max-w-md">
+  <div class=" flex justify-end">
+    <% if subscription %>
+      <% if subscription.quantity > 1 %>
+        <div class="flex w-6 flex justify-center items-center">
+          <%= subscription.quantity %>
+        </div>
+      <% end %>
+      <div class="flex w-6 h-6 rounded flex justify-center items-center text-pink-600 bg-pink-100 m-1 border border-pink-600">
+        <%= link_to subscription_path(subscription), method: :delete, remote: true, class: 'btn' do %>
+          <i class="fas fa-ban"></i>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="flex w-6 h-6 rounded flex justify-center items-center text-white bg-blue-600 m-1">
+      <%= link_to add_cart_formula_subscriptions_path(formula), method: :post, remote: true, class: 'btn' do %>
+        <i class="fas fa-plus"></i>
+      <% end %>
+    </div>
+  </div>
+  <div class="px-4">
+    <h3 class="text-2xl font-bold text-purple-900"><%= formula.name %></h3>
+    <p class="text-gray-400 text-xs font-bold tracking-wider"><%= formula.producer.full_name %></p>
+    <p class="text-md my-6 text-center"><%= formula.description %></p>
+  </div>
 
-  <% subscription = formula.subscriptions.without_payment.find_by(user: current_user) %>
-
-  <h3><%= formula.name %> (<%= formula.producer.full_name %>)</h3>
-  <p><%= formula.description %></p>
-  <p><%= humanized_money_with_symbol price %> X <%= delivery_count %> = <%= humanized_money_with_symbol total_price %></p>
-  <p><%= link_to "ajouter au panier", add_cart_formula_subscriptions_path(formula), method: :post, remote: true %></p>
-  <% if subscription %>
-    ( <%= subscription.quantity %> dans le panier) <%= link_to "Supprimer", subscription_path(subscription), method: :delete, remote: true %>
-  <% end %>
+  <div class="grid grid-cols-3 text-center bg-purple-600 py-2 items-center">
+    <div class="uppercase text-xs text-purple-200">Prix du panier</div>
+    <div class="uppercase text-xs text-purple-200">Livraisons</div>
+    <div class="uppercase text-xs text-purple-200">Total</div>
+    <div class="text-white font-bold"><%= humanized_money_with_symbol price %></div>
+    <div class="text-white font-bold"><%= delivery_count %></div>
+    <div class="text-white font-bold"><%= humanized_money_with_symbol total_price %></div>
+  </div>
 </li>

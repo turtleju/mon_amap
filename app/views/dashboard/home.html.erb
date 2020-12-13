@@ -52,7 +52,7 @@
 
 <% if @current_period %>
     <div class="period">
-      <% if false %> <!-- TODO -->
+      <% if current_user.subscriptions.on_other_period(@current_period).without_payment.exists? %> <!-- TODO -->
         <div class="period--disable">
             <div class="period--disable--message">
               Vous ne pouvez pas rentrer dans cette saison tant que votre panier est en cours dans une autre
@@ -72,7 +72,7 @@
 
 <% if @next_period %>
   <div class="period">
-    <% if false %> <!-- TODO -->
+    <% if current_user.subscriptions.on_other_period(@next_period).without_payment.exists? %> <!-- TODO -->
       <div class="period--disable">
           <div class="period--disable--message">
             Vous ne pouvez pas rentrer dans cette saison tant que votre panier est en cours dans une autre

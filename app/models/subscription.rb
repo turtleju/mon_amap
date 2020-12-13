@@ -21,7 +21,33 @@ class Subscription < ApplicationRecord
 
   scope :without_payment, -> { where(payment_id: nil) }
 
-  # scope :on_period, ->(period) {ap period ; all}
+  scope :on_period, lambda { |period|
+                      join_sql = <<~SQL
+                        LEFT JOIN formulas
+                        ON formulas.id = subscriptions.subscribable_id
+                        AND subscriptions.subscribable_type = 'Formula'
+                      SQL
+                      where_sql = <<~SQL
+                        (subscriptions.subscribable_type = 'Formula' AND formulas.period_id = :period_id)
+                        OR
+                        (subscriptions.subscribable_type = 'Period' AND subscriptions.subscribable_id = :period_id)
+                      SQL
+                      joins(join_sql).where(where_sql, period_id: period.id)
+                    }
+
+  scope :on_other_period, lambda { |period|
+                            join_sql = <<~SQL
+                              LEFT JOIN formulas
+                              ON formulas.id = subscriptions.subscribable_id
+                              AND subscriptions.subscribable_type = 'Formula'
+                            SQL
+                            where_sql = <<~SQL
+                              (subscriptions.subscribable_type = 'Formula' AND formulas.period_id <> :period_id)
+                              OR
+                              (subscriptions.subscribable_type = 'Period' AND subscriptions.subscribable_id <> :period_id)
+                            SQL
+                            joins(join_sql).where(where_sql, period_id: period.id)
+                          }
 
   def total_price
     price * quantity
