@@ -53,4 +53,10 @@ class ApplicationPolicy
       scope.all
     end
   end
+
+  private
+
+  def manager?
+    amap.manager == user
+  end
 end

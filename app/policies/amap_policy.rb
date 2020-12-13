@@ -13,6 +13,10 @@ class AmapPolicy < ApplicationPolicy
     true
   end
 
+  def manage?
+    manager?
+  end
+
   class Scope < Scope
     def resolve
       scope.all

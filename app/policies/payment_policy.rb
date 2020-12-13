@@ -13,6 +13,10 @@ class PaymentPolicy < ApplicationPolicy
     user.subscriptions.without_payment.exists?
   end
 
+  def confirm_deposit?
+    manager? && record.status == 'init'
+  end
+
   class Scope < Scope
     def resolve
       scope.joins(:subscriptions).where(subscriptions: { user_id: user.id }).distinct

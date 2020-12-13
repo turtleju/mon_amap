@@ -2,3 +2,9 @@ fr:
   cheques:
     deposit:
       success: Merci d'avoir déposer les chèques, nous allons en informer le responsable de l'amap
+  manager:
+    payments:
+      confirm_deposit:
+        success: Le paiement a bien été confirmé
+
+

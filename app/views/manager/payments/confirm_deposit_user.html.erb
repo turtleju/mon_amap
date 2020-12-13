@@ -1,0 +1,21 @@
+<% @payments.each do |payment| %>
+  <div class="mb-4 bg-green-300 p-8">
+    <ul>
+      <li>Date: <%= l payment.created_at.to_date, format: :long %></li>
+      <li>Nombre de chèques: <%= payment.cheques.count %></li>
+      <li>Montant total: <%= humanized_money_with_symbol Money.from_amount(payment.cheques.sum(:price_cents) / 100) %></li>
+      <li>
+        Montant des chèques par bénéficiaire:
+        <ul class="ml-4">
+          <% cheques = payment.cheques.select("recipient, SUM(price_cents) / 100 as total_price, COUNT(*) as count").group(:recipient) %>
+          <% cheques.each do |cheque| %>
+            <li>
+              <%= cheque.recipient %> : <%= humanized_money_with_symbol Money.from_amount(cheque.total_price) %> (<%= cheque.count %> chèques)
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+    <%= link_to "Confirmer la réception des chèques de ce paiement", confirm_deposit_manager_payment_path(payment), method: :post, class: 'btn btn-blue' %>
+  </div>
+<% end %>

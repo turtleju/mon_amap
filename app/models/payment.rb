@@ -6,4 +6,8 @@ class Payment < ApplicationRecord
   belongs_to :user
 
   monetize :price_cents, numericality: { greater_than_or_equal_to: 0 }
+
+  def confirm!
+    update(status: 'confirmed')
+  end
 end

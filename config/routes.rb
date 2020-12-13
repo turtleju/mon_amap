@@ -62,6 +62,16 @@ Rails.application.routes.draw do
     root 'dashboard#home'
   end
 
+  namespace :manager do
+    root to: 'dashboard#home'
+
+    resources :payments, only: [] do
+      get  'confirm_deposit_pick_user', on: :collection
+      get  'confirm_deposit/users/:user_id', on: :collection, to: 'payments#confirm_deposit_user', as: :confirm_deposit_user
+      post 'confirm_deposit', on: :member
+    end
+  end
+
   get '/', to: 'amaps#index', constraints: { subdomain: 'www' }
 
   root 'amaps#show'
