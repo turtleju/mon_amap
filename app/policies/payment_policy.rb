@@ -14,7 +14,7 @@ class PaymentPolicy < ApplicationPolicy
   end
 
   def confirm_deposit?
-    manager? && record.status == 'init'
+    manager? && record.status == 'pending'
   end
 
   class Scope < Scope

@@ -28,7 +28,7 @@ class CreatePaymentAndCheques < ApplicationService
 
   def create_payment
     amount = @subscriptions.inject(0) { |sum, subscription| sum + subscription.price * subscription.quantity }
-    @payment = Payment.create!(status: 'init', price: amount, user: @user)
+    @payment = Payment.create!(status: 'pending', price: amount, user: @user)
     @subscriptions.update_all(payment_id: @payment.id)
   end
 
