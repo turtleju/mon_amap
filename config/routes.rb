@@ -70,6 +70,8 @@ Rails.application.routes.draw do
       get  'confirm_deposit/users/:user_id', on: :collection, to: 'payments#confirm_deposit_user', as: :confirm_deposit_user
       post 'confirm_deposit', on: :member
     end
+
+    resources :subscriptions, only: :index
   end
 
   get '/', to: 'amaps#index', constraints: { subdomain: 'www' }
