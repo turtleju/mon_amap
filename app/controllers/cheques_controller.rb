@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# comments
 class ChequesController < ApplicationController
   def index
     @cheques = policy_scope(Cheque)

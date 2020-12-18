@@ -3,6 +3,7 @@
 class PeriodsController < ApplicationController
   before_action :set_period, only: %i[show]
 
+  # comment
   def new
     @period = Period.new
     authorize @period
