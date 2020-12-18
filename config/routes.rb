@@ -20,11 +20,8 @@ Rails.application.routes.draw do
     post :invite, on: :collection
   end
 
-  resources :periods, only: %i[new create index show] do
-    resources :period_days, only: %i[index create]
+  resources :periods, only: %i[new create show] do
   end
-
-  resources :period_days, only: %i[destroy]
 
   get 'dashboard', to: 'dashboard#home', as: :user_root
   get 'cart', to: 'subscriptions#cart', as: :cart
@@ -45,12 +42,37 @@ Rails.application.routes.draw do
     post :deposit, on: :collection
   end
 
-  namespace :producer do
-    resources :periods, only: %i[index] do
-      resources :formulas, only: %i[index new create]
+  namespace :manager do
+    root to: 'dashboard#home'
+
+    resources :periods, only: %i[new create index] do
+      resources :period_days, only: %i[index create]
+    end
+    resources :period_days, only: %i[destroy]
+
+    resources :payments, only: [] do
+      get  'confirm_deposit_pick_user', on: :collection
+      get  'confirm_deposit/users/:user_id', on: :collection, to: 'payments#confirm_deposit_user', as: :confirm_deposit_user
+      post 'confirm_deposit', on: :member
     end
 
-    resources :formulas, only: [:show] do
+    resources :cheques, only: [:index] do
+      get 'give_envelope_pick_producer', on: :collection
+      get 'give_envelope/producers/:producer_id', on: :collection, to: 'cheques#give_envelope_producer_select_payment', as: :give_envelope_producer_select_payment
+      post 'give_envelope/producers/:producer_id/payments/:payment_id', on: :collection, to: 'cheques#give_envelope_producer', as: :give_envelope_producer
+    end
+
+    resources :subscriptions, only: :index
+  end
+
+  namespace :producer do
+    resources :cheques, only: %i[index]
+
+    resources :periods, only: %i[index show] do
+      resources :formulas, only: %i[new create]
+    end
+
+    resources :formulas, only: %i[show] do
       resources :delivery_days, only: [] do
         post :present, on: :collection
         post :absent, on: :collection
@@ -60,16 +82,6 @@ Rails.application.routes.draw do
     end
 
     root 'dashboard#home'
-  end
-
-  namespace :manager do
-    root to: 'dashboard#home'
-
-    resources :payments, only: [] do
-      get  'confirm_deposit_pick_user', on: :collection
-      get  'confirm_deposit/users/:user_id', on: :collection, to: 'payments#confirm_deposit_user', as: :confirm_deposit_user
-      post 'confirm_deposit', on: :member
-    end
   end
 
   get '/', to: 'amaps#index', constraints: { subdomain: 'www' }

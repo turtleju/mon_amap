@@ -2,20 +2,20 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Periods', type: :request do
+RSpec.describe 'Manager::Periods', type: :request do
   login
   let(:signed_user) { Amap.current.manager }
 
   describe 'GET /new' do
     it 'returns http success' do
-      get '/periods/new'
+      get '/manager/periods/new'
       expect(response).to have_http_status(:success)
     end
   end
 
   describe 'GET /' do
     it 'returns http success' do
-      get '/periods'
+      get '/manager/periods'
       expect(response).to have_http_status(:success)
     end
   end

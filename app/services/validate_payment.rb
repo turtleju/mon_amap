@@ -18,6 +18,6 @@ class ValidatePayment < ApplicationService
   end
 
   def update_cheques_status
-    @payment.cheques.update_all(status: :deposit_confirmed)
+    @payment.cheques.update_all(status: Cheque::STATUS_DEPOSIT_CONFIRMED)
   end
 end

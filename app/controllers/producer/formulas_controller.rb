@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
-class Producer::FormulasController < Producer::BaseController
-  before_action :set_period, only: %i[index new create]
+class Producer::FormulasController < Producer::ApplicationController
+  before_action :set_period, only: %i[new create]
   before_action :set_formula, only: %i[show copy_formulas_delivery_days copy_formula_delivery_days]
-
-  def index
-    @formulas = policy_scope(Formula).where(period: @period)
-  end
 
   def new
     @formula = Formula.new

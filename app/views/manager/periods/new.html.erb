@@ -2,7 +2,7 @@
 <p>Find me in app/views/periods/new.html.erb</p>
 
 
-<%= simple_form_for(@period) do |f| %>
+<%= simple_form_for([:manager, @period]) do |f| %>
 
   <%= f.input :start_on %>
   <%= f.input :finish_on %>

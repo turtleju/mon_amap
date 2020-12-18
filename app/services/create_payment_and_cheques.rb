@@ -28,7 +28,7 @@ class CreatePaymentAndCheques < ApplicationService
 
   def create_payment
     amount = @subscriptions.inject(0) { |sum, subscription| sum + subscription.price * subscription.quantity }
-    @payment = Payment.create!(status: 'pending', price: amount, user: @user)
+    @payment = Payment.create!(status: Payment::STATUS_PENDING, price: amount, user: @user)
     @subscriptions.update_all(payment_id: @payment.id)
   end
 
@@ -46,8 +46,8 @@ class CreatePaymentAndCheques < ApplicationService
         {
           payment: @payment,
           producer: producer,
-          status: 'init',
-          recipient: producer.full_name,
+          status: Cheque::STATUS_INIT,
+          recipient: producer.recipient,
           price: Money.from_amount(payment[:sum].fdiv(100)),
           cashing_on: payment[:date]
         }
@@ -61,8 +61,8 @@ class CreatePaymentAndCheques < ApplicationService
       {
         payment: @payment,
         producer: producer,
-        status: 'init',
-        recipient: producer.full_name,
+        status: Cheque::STATUS_INIT,
+        recipient: producer.recipient,
         price: amount,
         cashing_on: @period.start_on > Date.today ? @period.start_on : Date.today
       }
@@ -74,7 +74,7 @@ class CreatePaymentAndCheques < ApplicationService
 
     @cheques_attributes << {
       payment: @payment,
-      status: 'init',
+      status: Cheque::STATUS_INIT,
       recipient: Amap.current.name,
       price: @subscription_period.price,
       cashing_on: @period.start_on > Date.today ? @period.start_on : Date.today

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PeriodDaysController < ApplicationController
+class Manager::PeriodDaysController < Manager::ApplicationController
   before_action :set_period, only: %i[index create]
   before_action :set_period_day, only: %i[destroy]
 
@@ -11,7 +11,7 @@ class PeriodDaysController < ApplicationController
 
   def destroy
     @period_day.destroy!
-    redirect_to period_period_days_path(@period_day.period),
+    redirect_to manager_period_period_days_path(@period_day.period),
                 notice: "La date du #{l @period_day.day, format: :long} a bien été supprimée."
   end
 
@@ -20,7 +20,7 @@ class PeriodDaysController < ApplicationController
     @period_day.period = @period
     authorize @period_day
     if @period_day.save
-      redirect_to period_period_days_path(@period_day.period),
+      redirect_to manager_period_period_days_path(@period_day.period),
                   notice: "La date du #{l @period_day.day, format: :long} a bien été ajoutée."
     else
       @period_days = policy_scope(PeriodDay).where(period: @period).sort_by_day

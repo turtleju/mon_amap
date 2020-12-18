@@ -1,7 +1,7 @@
 <% delivery_count = formula.delivery_days.in_future.count %>
 <% price = formula.price %>
 <% total_price = formula.total_price %>
-<% subscription = formula.subscriptions.without_payment.find_by(user: current_user) %>
+<% subscription = formula.subscriptions_in_cart.find_by(user: current_user) %>
 
 <li data-formula-id="<%= formula.id %>" class="border border-purple-600 my-8 mx-auto max-w-md">
   <div class=" flex justify-end">

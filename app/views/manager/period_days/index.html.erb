@@ -3,7 +3,7 @@
 
 <% if policy(@period_day).create?  %>
   <hr>
-    <%= simple_form_for([@period, @period_day]) do |f| %>
+    <%= simple_form_for([:manager, @period, @period_day]) do |f| %>
       <%= f.input :day %>
       <%= f.submit %>
     <% end %>
@@ -18,7 +18,7 @@
 
       <% if policy(period_day).destroy? %>
         |
-        <%= link_to 'supprimer', period_day_path(period_day.id), method: :delete %>
+        <%= link_to 'supprimer', manager_period_day_path(period_day.id), method: :delete %>
       <% end %>
     </li>
   <% end %>

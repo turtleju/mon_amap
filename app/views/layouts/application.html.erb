@@ -11,47 +11,15 @@
 
   <body>
 
+    <%= render 'shared/navbar' if current_user || current_producer %>
 
-    <fieldset data-controller="navbar" class="border-gray-200 border-2">
-      <legend>Navbar</legend>
-      <% if user_signed_in? %>
-        <p>Connecté en tant que : <%= current_user.email %> (id: <%= current_user.id %>) </p>
-        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete %>
-        <% if Amap.current %>
-          <ul>
-            <% if policy(Period).manage? %>
-              <li><%= link_to "Gérer les saisons",  periods_path %></li>
-            <% end %>
-            <li><%= link_to "dashboard",  user_root_path %></li>
-            <li data-navbar-target="cart">
-              <%= render 'shared/navbar_cart', number: current_user.subscriptions.without_payment.sum(:quantity) %>
-            </li>
-            <li><%= link_to "Chèques", cheques_path %></li>
-          </ul>
-        <% end %>
-      <% end %>
-      <% if producer_signed_in? %>
-        <p>Connecté en tant que : <%= current_producer.email %></p>
-        <%= link_to "Déconnexion", destroy_producer_session_path, method: :delete %>
-
-        <% if policy(Amap).producer_management? %>
-          <%= link_to "dashboard", producer_root_path %>
-        <% end %>
-      <% end %>
-    </fieldset>
-
-    <% if policy(Amap).manage? %>
-      <div class="bg-blue-100 p-4">
-        <h3 class="text-xl text-blue-700">Menu manager</h3>
-        <ul class="pl-4">
-          <li><%= link_to "Dashboard", manager_root_path %></li>
-        </ul>
-      </div>
+    <% if notice %>
+      <p class="notice bg-green-200 text-green-800 p-2 text-center font-bold border-b border-green-600"><%= notice %></p>
     <% end %>
 
-
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if alert %>
+      <p class="notice bg-alert-200 text-alert-800 p-2 text-center font-bold border-b border-alert-600"><%= alert %></p>
+    <% end %>
 
     <div class="p-8">
       <%= yield %>

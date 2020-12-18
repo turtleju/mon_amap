@@ -8,13 +8,6 @@ RSpec.describe 'Producer::Formulas', type: :request do
 
   login
 
-  describe 'GET /' do
-    it 'returns http success' do
-      get "/producer/periods/#{period.id}/formulas/"
-      expect(response).to have_http_status(:success)
-    end
-  end
-
   describe 'GET /new' do
     it 'returns http success' do
       get "/producer/periods/#{period.id}/formulas/new"

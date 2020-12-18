@@ -4,7 +4,7 @@
 <ul>
   <% @periods.each do |period| %>
     <li>
-      <%= link_to producer_period_formulas_path(period) do %>
+      <%= link_to producer_period_path(period) do %>
         <%= period.start_on %> → <%= period.finish_on %>
       <% end %>
     </li>

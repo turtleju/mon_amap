@@ -40,6 +40,15 @@ if Apartment::Tenant.current == 'public'
   user2.skip_confirmation!
   user2.save!
 
+  user3 = User.new(
+    email: 'visitor2@example.com',
+    password: 'azerty',
+    first_name: 'visitor12',
+    last_name: 'VISITOR12'
+  )
+  user3.skip_confirmation!
+  user3.save!
+
   amap1 = Amap.create!(
     name: 'Amap de Curis',
     subdomain: 'curis',

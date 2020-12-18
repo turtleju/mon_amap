@@ -19,7 +19,9 @@ class SubscriptionsController < ApplicationController
     render_update_cart
   end
 
-  def cart; end
+  def cart
+    redirect_to user_root_path if @subscriptions.none?
+  end
 
   def cart_payments
     @subscription_period   = @subscriptions.find_by(subscribable_type: 'Period')

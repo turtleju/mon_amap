@@ -2,13 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Manager::Dashboards', type: :request do
-  login
-  let(:signed_user) { Amap.current.manager }
+RSpec.describe 'Producer::Cheques', type: :request do
+  let(:signed_user) { create(:producer, :member) }
 
-  describe 'GET /home' do
+  login
+
+  describe 'GET /index' do
     it 'returns http success' do
-      get '/manager'
+      get '/producer/cheques'
       expect(response).to have_http_status(:success)
     end
   end

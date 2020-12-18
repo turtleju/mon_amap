@@ -1,6 +1,6 @@
 <h1><%= @formula.name %></h1>
 <h3>
-  <%= link_to producer_period_formulas_path(@formula.period) do %>
+  <%= link_to producer_period_path(@formula.period) do %>
     Sur la période du <%= @formula.period.start_on %> → <%= @formula.period.finish_on %>
   <% end %>
 </h3>

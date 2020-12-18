@@ -9,9 +9,21 @@ RSpec.describe 'Subscriptions', type: :request do
   login
 
   describe 'GET /cart' do
-    it 'returns http success' do
-      get '/cart'
-      expect(response).to have_http_status(:success)
+    context 'when subscriptions in cart' do
+      let(:formula) { create(:formula) }
+      let!(:subscription) { create(:subscription, user: signed_user, subscribable: formula) }
+
+      it 'returns http success' do
+        get '/cart'
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    context 'when no item in cart' do
+      it do
+        get '/cart'
+        expect(response).to redirect_to(user_root_path)
+      end
     end
   end
 end

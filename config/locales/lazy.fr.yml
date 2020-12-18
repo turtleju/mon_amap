@@ -6,5 +6,8 @@ fr:
     payments:
       confirm_deposit:
         success: Le paiement a bien été confirmé
+    cheques:
+      give_envelope_producer:
+        success: Les chèques ont bien été notés comme remis au producteur
 
 

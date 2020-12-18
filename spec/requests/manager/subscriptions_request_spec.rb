@@ -2,5 +2,5 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Manager::Cheques', type: :request do
+RSpec.describe 'Manager::Subscriptions', type: :request do
 end

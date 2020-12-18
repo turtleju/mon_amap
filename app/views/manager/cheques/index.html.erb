@@ -1,0 +1,26 @@
+<h1>Chèques</h1>
+
+<table class="table-auto">
+  <thead>
+    <tr>
+      <th>Montant</th>
+      <th>Client</th>
+      <th>Bénéficiare</th>
+      <th>Ordre</th>
+      <th>Date d'encaissement théorique</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cheques.each do |cheque| %>
+      <tr>
+        <td><%= humanized_money_with_symbol cheque.price %></td>
+        <td><%= cheque.payment.user.full_name %></td>
+        <td><%= cheque.producer&.full_name || 'amap' %></td>
+        <td><%= cheque.recipient %></td>
+        <td><%= l cheque.cashing_on %></td>
+        <td><%= cheque.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

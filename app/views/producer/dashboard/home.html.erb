@@ -1,5 +1,26 @@
-<h1>Producer::Dashboard#home</h1>
-<p>Find me in app/views/producer/dashboard/home.html.erb</p>
+<%= link_to producer_cheques_path, class: "block bg-green-300 hover:bg-green-100 font-bold text-green-700 p-8 text-lg text-center border-2 border-green-700 max-w-md my-2" do  %>
 
+  <h3>Nombre de chèques qu'il reste à encaisser:</h3>
+  <%= @number_cheques_uncashed %>
+  <p>Pour un montant de:</p>
+  <%= humanized_money_with_symbol @cheques_uncashed_amount %>
+<% end %>
 
-<%= link_to "Voir les saisons", producer_periods_path %>
+<% if @current_period %>
+  <%= link_to producer_period_path(@current_period), class: "block bg-blue-300 hover:bg-blue-100 text-blue-700 p-8 text-lg text-center border-2 border-blue-700 max-w-md my-2" do  %>
+    <h3 class="font-bold">Saison actuelle</h3>
+    <p class="text-sm">
+      Du <%= l @current_period.start_on, format: :long %> au <%= l @current_period.finish_on, format: :long %>
+    </p>
+  <% end %>
+<% end %>
+
+<% if @next_period %>
+  <%= link_to producer_period_path(@next_period), class: "block bg-yellow-300 hover:bg-yellow-100 text-yellow-700 p-8 text-lg text-center border-2 border-yellow-700 max-w-md my-2" do  %>
+    <h3 class="font-bold">Saison actuelle</h3>
+    <p class="text-sm">
+      Du <%= l @next_period.start_on, format: :long %> au <%= l @next_period.finish_on, format: :long %>
+    </p>
+  <% end %>
+<% end %>
+

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_12_113209) do
+ActiveRecord::Schema.define(version: 2020_12_22_214300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2020_12_12_113209) do
     t.date "cashing_on"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "cashed_on"
     t.index ["payment_id"], name: "index_cheques_on_payment_id"
     t.index ["producer_id"], name: "index_cheques_on_producer_id"
   end

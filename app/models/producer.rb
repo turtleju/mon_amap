@@ -21,4 +21,9 @@ class Producer < ApplicationRecord
   def member?
     amap_producer.present?
   end
+
+  # TODO
+  def recipient
+    full_name
+  end
 end

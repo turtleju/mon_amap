@@ -1,0 +1,46 @@
+<h1>Remettre des chèques à <%= @producer.full_name %></h1>
+<p class="mb-8">L'ordre doit être: <strong><%= @producer.recipient %></strong></p>
+
+<% if @cheques_by_payment.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th class="border">Client</th>
+        <th class="border">Montant</th>
+        <th class="border">Date d'encaissement théorique</th>
+        <th class="border">Total</th>
+        <th class="border">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% @cheques_by_payment.each do |payment_id, data| %>
+        <% user     = data[:user] %>
+        <% cheques  = data[:cheques] %>
+        <% total = cheques.sum(&:price) %>
+        <% cheques.each_with_index do |cheque, i| %>
+          <tr>
+            <% if i.zero? %>
+              <td rowspan="<%= cheques.size %>" class="border"><%= cheque.payment.user.full_name %></td>
+            <% end %>
+            <td class="border"><%= humanized_money_with_symbol cheque.price %></td>
+            <td class="border"><%= l cheque.cashing_on %></td>
+            <% if i.zero? %>
+              <td rowspan="<%= cheques.size %>" class="border"><%= humanized_money_with_symbol total %></td>
+              <td rowspan="<%= cheques.size %>" class="border">
+                <%= link_to "Donner l'enveloppe", give_envelope_producer_manager_cheques_path(@producer, payment_id), method: :post, data: {confirm: "Vous confirmez donner une enveloppe avec #{cheques.size} chèques d'une valeur de #{humanized_money_with_symbol total}"} %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>
+    Aucun chèque n'est en attente d'être remis au producteur.
+  </p>
+  <%= link_to "Revenir sur le dashboard", manager_root_path %>
+<% end %>
+
+

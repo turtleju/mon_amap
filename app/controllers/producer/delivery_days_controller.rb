@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Producer::DeliveryDaysController < Producer::BaseController
+class Producer::DeliveryDaysController < Producer::ApplicationController
   before_action :set_formula, only: %i[present absent]
   before_action :set_period_day, only: %i[present absent]
 

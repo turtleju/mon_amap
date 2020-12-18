@@ -19,7 +19,11 @@ class Subscription < ApplicationRecord
       .where(subscribable_type: 'Formula')
   }
 
+  scope :payment_confirmed, -> { joins(:payment).where(payments: { status: Payment::STATUS_CONFIRMED }) }
+  scope :payment_pending, -> { joins(:payment).where(payments: { status: Payment::STATUS_PENDING }) }
+
   scope :without_payment, -> { where(payment_id: nil) }
+  scope :with_payment, -> { where.not(payment_id: nil) }
 
   scope :on_period, lambda { |period|
                       join_sql = <<~SQL
@@ -51,5 +55,19 @@ class Subscription < ApplicationRecord
 
   def total_price
     price * quantity
+  end
+
+  def period
+    case subscribable
+    when Period then subscribable
+    when Formula then subscribable.period
+    end
+  end
+
+  def name
+    case subscribable
+    when Period then 'Abonnement amap'
+    when Formula then subscribable.name
+    end
   end
 end

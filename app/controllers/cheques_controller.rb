@@ -7,7 +7,7 @@ class ChequesController < ApplicationController
 
   def deposit
     authorize(Cheque)
-    policy_scope(Cheque).update_all(status: :deposited)
+    policy_scope(Cheque).update_all(status: Cheque::STATUS_DEPOSITED)
     redirect_back(fallback_location: cheques_path, notice: t('.success'))
   end
 end

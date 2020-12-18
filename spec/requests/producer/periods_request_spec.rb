@@ -14,4 +14,11 @@ RSpec.describe 'Producer::Periods', type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe 'GET /period/:id' do
+    it 'returns http success' do
+      get "/producer/periods/#{period.id}"
+      expect(response).to have_http_status(:success)
+    end
+  end
 end

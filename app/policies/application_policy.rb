@@ -57,6 +57,6 @@ class ApplicationPolicy
   private
 
   def manager?
-    amap.manager == user
+    amap && amap.manager == user
   end
 end

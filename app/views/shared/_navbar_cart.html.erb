@@ -1,1 +1,7 @@
-<%= link_to "panier (#{number})", cart_path %>
+<% if number > 0 %>
+  <%= link_to "panier (#{number})", cart_path %>
+<% else %>
+  <span>
+    panier (vide)
+  </span>
+<% end %>

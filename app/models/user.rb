@@ -10,4 +10,10 @@ class User < ApplicationRecord
   has_many :subscriptions
   has_many :payments
   has_many :cheques, through: :payments
+
+  def full_name
+    return "#{first_name.capitalize} #{last_name.upcase}" if first_name.present? && last_name.present?
+
+    email
+  end
 end

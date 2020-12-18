@@ -1,0 +1,8 @@
+<p>Veuillez choisir un producteur</p>
+
+<ul>
+  <% @producers.each do |producer| %>
+    <li><%= link_to producer.full_name, give_envelope_producer_select_payment_manager_cheques_path(producer) %></li>
+  <% end %>
+
+</ul>
