@@ -27,46 +27,47 @@
              }[role]
 %>
 
-
-<div data-controller="navbar" class="bg-<%= color %>-100 p-2 flex justify-between border-b-2 border-<%= color %>-400">
-  <div class="flex flex-col justify-between">
-    <%= link_to user_root_path do %>
-      <h3 class="text-xl font-bold"><%= Amap.current.name %> / <%= role_text %></h3>
-    <% end %>
-    <ul class="flex text-<%= color %>-700">
-      <% if producer_signed_in? %>
-        <% if policy(Amap).producer_management? %>
-            <li class="mr-4"><%= link_to "Dashboard", producer_root_path %></li>
-            <li class="mr-4"><%= link_to "Chèques", producer_cheques_path %></li>
-            <li class="mr-4"><%= link_to "Saisons", producer_periods_path %></li>
-        <% end %>
-      <% elsif params[:controller].split('/').first == 'manager' && policy(Amap).manage? %>
-        <li class="mr-4"><%= link_to "Dashboard", manager_root_path %></li>
-        <li class="mr-4"><%= link_to "Chèques", manager_cheques_path %></li>
-        <li class="mr-4"><%= link_to "Abonnements", manager_subscriptions_path %></li>
-        <li class="mr-4"><%= link_to "Saisons", manager_periods_path %></li>
-      <% else %>
-        <li class="mr-4"><%= link_to "Dashboard", user_root_path %></li>
-        <li class="mr-4"><%= link_to "Chèques", cheques_path %></li>
-        <li class="mr-4" data-navbar-target="cart">
-          <%= render 'shared/navbar_cart', number: current_user.subscriptions.without_payment.sum(:quantity) %>
-        </li>
+<div class=" bg-<%= color %>-100 border-b-2 border-<%= color %>-400">
+  <div data-controller="navbar" class="container p-2 flex justify-between ">
+    <div class="flex flex-col justify-between">
+      <%= link_to user_root_path do %>
+        <h3 class="text-xl font-bold"><%= Amap.current.name %> / <%= role_text %></h3>
       <% end %>
-    </ul>
-  </div>
-  <div class="flex flex-col items-end">
-    <p class="font-bold"><%= resource.full_name %></p>
-    <p class="text-gray-600 text-sm mb-4"><%= resource.email %></p>
-    <p class="text-<%= color %>-500">
-      <% if user_signed_in? && policy(Amap).manage? %>
-        <% if params[:controller].split('/').first == 'manager' %>
-          <%= link_to "Côté client", user_root_path %>
+      <ul class="flex text-<%= color %>-700">
+        <% if producer_signed_in? %>
+          <% if policy(Amap).producer_management? %>
+              <li class="mr-4"><%= link_to "Dashboard", producer_root_path %></li>
+              <li class="mr-4"><%= link_to "Chèques", producer_cheques_path %></li>
+              <li class="mr-4"><%= link_to "Saisons", producer_periods_path %></li>
+          <% end %>
+        <% elsif params[:controller].split('/').first == 'manager' && policy(Amap).manage? %>
+          <li class="mr-4"><%= link_to "Dashboard", manager_root_path %></li>
+          <li class="mr-4"><%= link_to "Chèques", manager_cheques_path %></li>
+          <li class="mr-4"><%= link_to "Abonnements", manager_subscriptions_path %></li>
+          <li class="mr-4"><%= link_to "Saisons", manager_periods_path %></li>
         <% else %>
-          <%= link_to "Côté manager", manager_root_path %>
+          <li class="mr-4"><%= link_to "Dashboard", user_root_path %></li>
+          <li class="mr-4"><%= link_to "Chèques", cheques_path %></li>
+          <li class="mr-4" data-navbar-target="cart">
+            <%= render 'shared/navbar_cart', number: current_user.subscriptions.without_payment.sum(:quantity) %>
+          </li>
         <% end %>
-      <% end %>
-      <%= link_to "Déconnexion", destroy_resource_session_path, method: :delete %>
-    </p>
+      </ul>
+    </div>
+    <div class="flex flex-col items-end">
+      <p class="font-bold"><%= resource.full_name %></p>
+      <p class="text-gray-600 text-sm mb-4"><%= resource.email %></p>
+      <p class="text-<%= color %>-500">
+        <% if user_signed_in? && policy(Amap).manage? %>
+          <% if params[:controller].split('/').first == 'manager' %>
+            <%= link_to "Côté client", user_root_path %>
+          <% else %>
+            <%= link_to "Côté manager", manager_root_path %>
+          <% end %>
+        <% end %>
+        <%= link_to "Déconnexion", destroy_resource_session_path, method: :delete %>
+      </p>
+    </div>
   </div>
 </div>
 
