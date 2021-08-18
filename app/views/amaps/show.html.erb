@@ -1,10 +1,9 @@
 <div class="flex flex-col items-center">
-  <h1 class="text-5xl my-32 font-bold"><%= Amap.current.name %></h1>
-  <p class="my-2 text-gray-500">Se connecter en tant que:</p>
-
-  <div class="flex text-3xl font-bold">
-    <%= link_to "Consommateur", new_user_session_path, class: "mx-4 text-blue-600 hover:text-blue-500" %>
-    <%= link_to "Producteur", new_producer_session_path, class: "mx-4 text-green-600 hover:text-green-500" %>
+  <h1 class="mt-32 mb-16"><%= Amap.current.name %></h1>
+  <p class="my-4">Se connecter en tant que:</p>
+  <div class="w-9/12 flex justify-center space-x-4 text-3xl font-bold">
+    <%= link_to "Consommateur", new_user_session_path, class: "card text-center bg-green text-white hover:shadow-green transition duration-300 flex-1" %>
+    <%= link_to "Producteur", new_producer_session_path, class: "card text-center bg-yellow text-white hover:shadow-yellow transition duration-300 flex-1" %>
   </div>
 </div>
 
